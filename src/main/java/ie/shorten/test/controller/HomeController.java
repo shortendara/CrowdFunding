@@ -17,7 +17,7 @@ public class HomeController {
 	
 	@RequestMapping("/")
 	public String index(Locale locale, Model model){
-		List<Product> product_list = product_repository.findAllproducts();
+		List<Product> product_list = product_repository.findAll();
 		model.addAttribute(product_list);
 		return "index";
 	}
