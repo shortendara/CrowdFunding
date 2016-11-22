@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<title>Index</title>
@@ -11,11 +11,9 @@
 		</tr>
 		<tr th:each="product : ${product_list}">
 			<td>
-				<a th:href="@{/product/__${product.id}__}"><span th:text="${product.productName}"></span></a>
-			</td>
-			
-			
-			
+				<p th:text="${product.productName}"></p>
+			</td>		
 		</tr>
 	</table>
+ </body>
 </html>
