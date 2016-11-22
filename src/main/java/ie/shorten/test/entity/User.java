@@ -25,11 +25,17 @@ public class User {
 	private String user_name;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name="artist_movements",
+	@JoinTable(name="users_products",
 			joinColumns={@JoinColumn(name="artist_id", referencedColumnName="id")},
 			inverseJoinColumns={@JoinColumn(name="movement_id", referencedColumnName="id")})
 	public List<Product> products;
-
+	
+	/*@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name="artist_movements",
+			joinColumns={@JoinColumn(name="artist_id", referencedColumnName="id")},
+			inverseJoinColumns={@JoinColumn(name="movement_id", referencedColumnName="id")})
+	public List<Product> pledges;
+	*/
 	public int getId() {
 		return id;
 	}
