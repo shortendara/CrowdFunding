@@ -1,8 +1,8 @@
 package ie.shorten.test.controller;
 
+
 import java.util.List;
 import java.util.Locale;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,20 +18,15 @@ public class HomeController {
 	ProductRepository product_repository;
 	
 	@RequestMapping("/")
-	public String index(Locale locale, Model model){
-		List<Product> product_list = product_repository.findAll();
-		model.addAttribute(product_list);
+	public String index(){
 		return "index";
 	}
 	
-	@RequestMapping("/user")
-	public String user(Model model){
-		return null;
-	}
-	
-	@RequestMapping("/user/products")
-	public String user_products(Model model){
-		return null;
+	@RequestMapping("/allProducts")
+	public String index(Model model){
+		List<Product> product_list = product_repository.findAll();
+		model.addAttribute("product_list", product_list);
+		return "allProducts";
 	}
 	
 }
