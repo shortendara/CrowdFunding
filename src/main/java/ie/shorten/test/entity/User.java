@@ -52,12 +52,12 @@ public class User {
 		this.user_name = user_name;
 	}
 
-	public List<Product> getMovements() {
+	public List<Product> getProducts() {
 		return products;
 	}
 
-	public void setMovements(List<Product> movements) {
-		this.products = movements;
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 	
 	@Override

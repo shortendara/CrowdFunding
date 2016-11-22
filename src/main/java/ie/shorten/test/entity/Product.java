@@ -21,7 +21,7 @@ public class Product {
 	private String productName;
 	private String productDescription;
 	private double productGoal;
-	private double currentRasied;
+	private double currentRaised;
 	
 
 	@ManyToMany(mappedBy="products")
@@ -61,11 +61,11 @@ public class Product {
 	}
 
 	public double getCurrentRasied() {
-		return currentRasied;
+		return currentRaised;
 	}
 
-	public void setCurrentRasied(double currentRasied) {
-		this.currentRasied = currentRasied;
+	public void setCurrentRasied(double currentRaised) {
+		this.currentRaised = currentRaised;
 	}
 
 
