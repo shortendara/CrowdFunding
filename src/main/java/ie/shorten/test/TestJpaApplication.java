@@ -11,9 +11,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import ie.shorten.test.entity.Product;
 import ie.shorten.test.repository.ProductRepository;
 
-@EnableAutoConfiguration
-public class TestJpaApplication implements CommandLineRunner{
+@SpringBootApplication
+public class TestJpaApplication{
 
+	/*
 	@Autowired
 	ProductRepository product_repository;
 	
@@ -28,13 +29,9 @@ public class TestJpaApplication implements CommandLineRunner{
 		}
 		
 	}
+	*/
 	
 	public static void main(String[] args) {
 		SpringApplication.run(TestJpaApplication.class, args);
-	}
-	@Override
-	public void run(String... arg0) throws Exception {
-		// TODO Auto-generated method stub
-		query01();
 	}
 }
