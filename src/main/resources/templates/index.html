@@ -9,7 +9,7 @@
 		<tr>
 			<th>Products</th>
 		</tr>
-		<tr th:each="product : ${products}">
+		<tr th:each="product : ${product_list}">
 			<td>
 				<a th:href="@{/product/__${product.id}__}"><span th:text="${product.productName}"></span></a>
 			</td>
