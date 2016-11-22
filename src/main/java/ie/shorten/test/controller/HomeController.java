@@ -25,7 +25,7 @@ public class HomeController {
 	@RequestMapping("/allProducts")
 	public String index(Model model){
 		List<Product> product_list = product_repository.findAll();
-		model.addAttribute(product_list);
+		model.addAttribute("product_list", product_list);
 		return "allProducts";
 	}
 	
