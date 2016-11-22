@@ -22,4 +22,14 @@ public class HomeController {
 		return "index";
 	}
 	
+	@RequestMapping("/user")
+	public String user(Model model){
+		return null;
+	}
+	
+	@RequestMapping("/user/products")
+	public String user_products(Model model){
+		return null;
+	}
+	
 }
