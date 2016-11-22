@@ -1,5 +1,7 @@
 package ie.shorten.test;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,9 +21,12 @@ public class TestJpaApplication implements CommandLineRunner{
 		System.out.println("\nQuery 1 (Print artist with id 1)\n------------------");
 		
 		// using inherited findOne method from CrudRepository
-		Product artist = product_repository.findOne(1);
+		List<Product> products = product_repository.findAll();
 
-		System.out.println(artist.toString());
+		for(Product product : products){
+			System.out.println(product.toString());
+		}
+		
 	}
 	
 	public static void main(String[] args) {
