@@ -21,8 +21,10 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	@Column(name="user_name")
-	private String user_name;
+	@Column(name="userName")
+	private String userName;
+	
+	private String password;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="users_products",
@@ -30,12 +32,18 @@ public class User {
 			inverseJoinColumns={@JoinColumn(name="movement_id", referencedColumnName="id")})
 	public List<Product> products;
 	
+	public User(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
+
 	/*@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="artist_movements",
 			joinColumns={@JoinColumn(name="artist_id", referencedColumnName="id")},
 			inverseJoinColumns={@JoinColumn(name="movement_id", referencedColumnName="id")})
 	public List<Product> pledges;
 	*/
+	
 	public int getId() {
 		return id;
 	}
@@ -44,13 +52,22 @@ public class User {
 		this.id = id;
 	}
 
-	public String getUser_name() {
-		return user_name;
-	}
-
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
-	}
+ 
+    public String getUserName() {
+        return userName;
+    }
+ 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+ 
+    public String getPassword() {
+        return password;
+    }
+ 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 	public List<Product> getProducts() {
 		return products;
@@ -62,8 +79,8 @@ public class User {
 	
 	@Override
 	public String toString() {
-		String out = "Artiste [id=" + id + ", fullName="
-				+ user_name + ", movements="; 
+		String out = "User [id=" + id + ", fullName="
+				+ userName + ", products="; 
 		for (Product m : products) {
 			out += m.toString() + ",";
 		}
