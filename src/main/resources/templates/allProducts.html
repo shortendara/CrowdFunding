@@ -11,7 +11,7 @@
 		</tr>
 		<tr th:each="product : ${product_list}">
 			<td>
-				<p th:text="${product.productName}"></p>
+				<p th:text="${product.getproductName()}"></p>
 			</td>		
 		</tr>
 	</table>
