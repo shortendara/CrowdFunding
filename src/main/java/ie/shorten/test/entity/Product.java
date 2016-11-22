@@ -22,8 +22,7 @@ public class Product {
 	private String productDescription;
 	private double productGoal;
 	private double currentRasied;
-	private Date startDate;
-	private Date endDate;
+	
 
 	@ManyToMany(mappedBy="products")
 	private List<User> users;
@@ -69,21 +68,6 @@ public class Product {
 		this.currentRasied = currentRasied;
 	}
 
-	public Date getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
 
 	@Override
 	public String toString() {

@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Index</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Product</h1>
+	
+	<p>Name: <span th:text="${product.getproductName()}">Product Name</span></p>
+	<p>Description: <span th:text="${product.getProductDescription()}">Product Description</span></p>
+	<p>Goal: <span th:text="${product.getProductGoal()}">Product Goal</span></p>
+	<p>Current Raised: <span th:text="${product.getCurrentRasied()}">Current Raised</span></p>
+	<p>Start Date: <span th:text="${product.getStartDate()}">Start Date</span></p>
+	<p>End Date: <span th:text="${product.getEndDate()}">End Date</span></p>
+	
+ </body>
+</html>
