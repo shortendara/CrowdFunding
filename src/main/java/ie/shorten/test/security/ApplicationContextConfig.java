@@ -3,7 +3,7 @@ package ie.shorten.test.security;
 
 import javax.sql.DataSource;
 
-import org.o7planning.springmvcsecurity.dao.UserInfoDAO;
+import ie.shorten.test.dao.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -30,7 +30,7 @@ public class ApplicationContextConfig {
  private Environment env;
 
  @Autowired
- private UserInfoDAO userInfoDAO;
+ private UserDAO userInfoDAO;
 
  @Bean
  public ResourceBundleMessageSource messageSource() {

@@ -9,9 +9,9 @@ import ie.shorten.test.entity.User;
 public class UserService {
 	List<User> list = new ArrayList<>();
 	{
-		list.add(new User(1, "Joe"));
+		/*list.add(new User(1, "Joe"));
 		list.add(new User(2, "Jeff"));
-		list.add(new User(3, "Jim"));
+		list.add(new User(3, "Jim"));*/
 	}
 	
 	public List<User> getUsers() {

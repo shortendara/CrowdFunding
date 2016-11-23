@@ -1,7 +1,7 @@
 package ie.shorten.test.security;
 
  
-import org.o7planning.springmvcsecurity.authentication.MyDBAuthenticationService;
+import ie.shorten.test.security.MyDBAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
