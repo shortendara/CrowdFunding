@@ -50,6 +50,7 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 				<th>Current Raised</th>
 				<th>Start Date</th>
 				<th>Days Left</th>
+				<th>Harvey Says:</th>
 			</tr>
 		</thead>
 			<tr th:each="product : ${product_list}">
@@ -59,7 +60,7 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 					<th th:text="${product.getProductDescription()}"></th>
 					<th th:text="${product.getProductGoal()}"></th>
 					<th th:text="${product.getCurrentRasied()}"></th>
-					<!-- Insert button here to view individual product -->
+					<th><button class="success">Hello CUnts</button></th>
 				</td>		
 			</tr>
 		</table>
