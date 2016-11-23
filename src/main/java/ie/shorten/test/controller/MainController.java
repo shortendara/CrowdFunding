@@ -16,21 +16,17 @@ import ie.shorten.test.entity.Product;
 import ie.shorten.test.repository.ProductRepository;
  
 @Configuration
+@Controller
 public class MainController extends WebMvcConfigurerAdapter {
  
 	@Autowired
 	ProductRepository product_repository;
-	
-	/**
-	 * 
-	 * @param model
-	 * @return Index.html welcome page
-	 */
-	@RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
-   	public String welcomePage(Model model) {
-	   	return "index";
-   	}
- 
+	 @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        //registry.addViewController("/home").setViewName("login");
+        registry.addViewController("/").setViewName("login");
+        registry.addViewController("/login").setViewName("login");
+    }
 	/**
 	 * 
 	 * @param model
@@ -53,15 +49,7 @@ public class MainController extends WebMvcConfigurerAdapter {
    		return "adminPage";
    	}
  
-   	/**
-   	 * Directs user to login page
-   	 * @param model
-   	 * @return Login web page
-   	 */
-   	@RequestMapping(value = "/login", method = RequestMethod.GET)
-   	public String loginPage(Model model ) {  
-   		return "loginPage";
-   	}
+   	
  
    	/**
    	 * Returns web page indicating that user has logged out successfully 
@@ -109,7 +97,7 @@ public class MainController extends WebMvcConfigurerAdapter {
    	 * @param principal
    	 * @return Error Web page
    	 */
-   	@RequestMapping(value = "/403", method = RequestMethod.GET)
+   	@RequestMapping(value = "/404", method = RequestMethod.GET)
    	public String accessDenied(Model model, Principal principal) {    
        if (principal != null) {
            model.addAttribute("message", "Hi " + principal.getName()
