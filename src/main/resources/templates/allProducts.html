@@ -55,12 +55,12 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 			<tr th:each="product : ${product_list}">
 				<td>
 					<th th:text="${product.getId()}"></th>
-					<th th:text="${product.getproductName()}"></th>
-					<th th:text="${product.getproductDescription()}"></th>
+					<th th:text="${product.getProductName()}"></th>
+					<th th:text="${product.getProductDescription()}"></th>
 					<th th:text="${product.getProductGoal()}"></th>
 					<th th:text="${product.getCurrentRasied()}"></th>
-				</td>
-				<button th:href="#">View</button>		
+					<!-- Insert button here to view individual product -->
+				</td>		
 			</tr>
 		</table>
 	</div>

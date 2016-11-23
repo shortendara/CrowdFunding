@@ -52,11 +52,11 @@ public class Product {
 		this.id = id;
 	}
 
-	public String getproductName() {
+	public String getProductName() {
 		return productName;
 	}
 
-	public void setproductName(String name) {
+	public void setProductName(String name) {
 		this.productName = name;
 	}
 
