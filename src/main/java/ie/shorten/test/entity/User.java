@@ -28,8 +28,8 @@ public class User {
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="users_products",
-			joinColumns={@JoinColumn(name="artist_id", referencedColumnName="id")},
-			inverseJoinColumns={@JoinColumn(name="movement_id", referencedColumnName="id")})
+			joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
+			inverseJoinColumns={@JoinColumn(name="product_id", referencedColumnName="id")})
 	public List<Product> products;
 	
 	public User(String userName, String password) {
