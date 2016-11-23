@@ -23,22 +23,10 @@ public class MainController extends WebMvcConfigurerAdapter {
 	ProductRepository product_repository;
 	 @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/home").setViewName("index");
-        registry.addViewController("/").setViewName("index");
-        registry.addViewController("/greetings").setViewName("greetings");
+        //registry.addViewController("/home").setViewName("login");
+        registry.addViewController("/").setViewName("login");
         registry.addViewController("/login").setViewName("login");
     }
-
-	/**
-	 * 
-	 * @param model
-	 * @return Index.html welcome page
-	 */
-	@RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
-   	public String welcomePage(Model model) {
-	   	return "index";
-   	}
- 
 	/**
 	 * 
 	 * @param model
@@ -61,15 +49,7 @@ public class MainController extends WebMvcConfigurerAdapter {
    		return "adminPage";
    	}
  
-   	/**
-   	 * Directs user to login page
-   	 * @param model
-   	 * @return Login web page
-   	 */
-   	@RequestMapping(value = "/login", method = RequestMethod.GET)
-   	public String loginPage(Model model ) {  
-   		return "login";
-   	}
+   	
  
    	/**
    	 * Returns web page indicating that user has logged out successfully 
