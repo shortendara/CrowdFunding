@@ -4,16 +4,19 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import ie.shorten.test.entity.Product;
 import ie.shorten.test.repository.ProductRepository;
  
-@Controller
-public class MainController {
+@Configuration
+public class MainController extends WebMvcConfigurerAdapter {
  
 	@Autowired
 	ProductRepository product_repository;
@@ -22,60 +25,26 @@ public class MainController {
    public String welcomePage(Model model) {
        return "index";
    }
- 
+	 
    	@RequestMapping("/allProducts")
 	public String index(Model model){
 		List<Product> product_list = product_repository.findAll();
 		model.addAttribute("product_list", product_list);
-		return "allProducts";
-	}
-   
-   @RequestMapping(value = "/admin", method = RequestMethod.GET)
-   public String adminPage(Model model) {
-       return "adminPage";
-   }
- 
-   @RequestMapping(value = "/login", method = RequestMethod.GET)
-   public String loginPage(Model model ) {
-      
-       return "loginPage";
-   }
- 
-   @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
-   public String logoutSuccessfulPage(Model model) {
-       model.addAttribute("title", "Logout");
-       return "logoutSuccessfulPage";
-   }
- 
-   @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
-   public String userInfo(Model model, Principal principal) {
- 
-       // After user login successfully.
-       String userName = principal.getName();
- 
-       System.out.println("User Name: "+ userName);
- 
-       return "userInfoPage";
-   }
-   
-   @RequestMapping("/product/{id}")
+	return "allProducts";
+		   	}
+	   
+	   @RequestMapping("/product/{id}")
 	public String product(Model model){
 		//using id=1 as a test
-		List<Product> product = product_repository.findByid(1);
-		model.addAttribute("product_id", product);
-		return "product";
+	List<Product> product = product_repository.findByid(1);
+	model.addAttribute("product_id", product);
+	return "product";
 	}
- 
-   @RequestMapping(value = "/403", method = RequestMethod.GET)
-   public String accessDenied(Model model, Principal principal) {
-        
-       if (principal != null) {
-           model.addAttribute("message", "Hi " + principal.getName()
-                   + "<br> You do not have permission to access this page!");
-       } else {
-           model.addAttribute("msg",
-                   "You do not have permission to access this page!");
-       }
-       return "403Page";
-   }
+	   
+   @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("index");
+        registry.addViewController("/login").setViewName("login");
+    }
+	 
 }
