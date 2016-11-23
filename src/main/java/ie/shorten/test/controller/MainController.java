@@ -57,6 +57,14 @@ public class MainController {
  
        return "userInfoPage";
    }
+   
+   @RequestMapping("/product/{id}")
+	public String product(Model model){
+		//using id=1 as a test
+		List<Product> product = product_repository.findByid(1);
+		model.addAttribute("product_id", product);
+		return "product";
+	}
  
    @RequestMapping(value = "/403", method = RequestMethod.GET)
    public String accessDenied(Model model, Principal principal) {
