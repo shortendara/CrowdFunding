@@ -1,22 +1,35 @@
 package ie.shorten.test.controller;
 
 import java.security.Principal;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import ie.shorten.test.entity.Product;
+import ie.shorten.test.repository.ProductRepository;
  
 @Controller
 public class MainController {
  
-   @RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
+	@Autowired
+	ProductRepository product_repository;
+	
+   @RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
    public String welcomePage(Model model) {
-       model.addAttribute("title", "Welcome");
-       model.addAttribute("message", "This is welcome page!");
-       return "welcomePage";
+       return "index";
    }
  
+   	@RequestMapping("/allProducts")
+	public String index(Model model){
+		List<Product> product_list = product_repository.findAll();
+		model.addAttribute("product_list", product_list);
+		return "allProducts";
+	}
+   
    @RequestMapping(value = "/admin", method = RequestMethod.GET)
    public String adminPage(Model model) {
        return "adminPage";
@@ -44,6 +57,14 @@ public class MainController {
  
        return "userInfoPage";
    }
+   
+   @RequestMapping("/product/{id}")
+	public String product(Model model){
+		//using id=1 as a test
+		List<Product> product = product_repository.findByid(1);
+		model.addAttribute("product_id", product);
+		return "product";
+	}
  
    @RequestMapping(value = "/403", method = RequestMethod.GET)
    public String accessDenied(Model model, Principal principal) {
