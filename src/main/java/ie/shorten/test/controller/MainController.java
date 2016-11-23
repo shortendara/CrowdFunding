@@ -18,11 +18,21 @@ public class MainController {
 	@Autowired
 	ProductRepository product_repository;
 	
-   @RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
-   public String welcomePage(Model model) {
-       return "index";
-   }
+	/**
+	 * 
+	 * @param model
+	 * @return Index.html welcome page
+	 */
+	@RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
+   	public String welcomePage(Model model) {
+	   	return "index";
+   	}
  
+	/**
+	 * 
+	 * @param model
+	 * @return Web page listing all products
+	 */
    	@RequestMapping("/allProducts")
 	public String index(Model model){
 		List<Product> product_list = product_repository.findAll();
@@ -30,35 +40,59 @@ public class MainController {
 		return "allProducts";
 	}
    
-   @RequestMapping(value = "/admin", method = RequestMethod.GET)
-   public String adminPage(Model model) {
-       return "adminPage";
-   }
+   	/**
+   	 * Web page has authority to delete products
+   	 * @param model
+   	 * @return Admin web page which has privligages to delete projects
+   	 */
+   	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+   	public String adminPage(Model model) {
+   		return "adminPage";
+   	}
  
-   @RequestMapping(value = "/login", method = RequestMethod.GET)
-   public String loginPage(Model model ) {
-      
-       return "loginPage";
-   }
+   	/**
+   	 * Directs user to login page
+   	 * @param model
+   	 * @return Login web page
+   	 */
+   	@RequestMapping(value = "/login", method = RequestMethod.GET)
+   	public String loginPage(Model model ) {  
+   		return "loginPage";
+   	}
  
-   @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
-   public String logoutSuccessfulPage(Model model) {
-       model.addAttribute("title", "Logout");
-       return "logoutSuccessfulPage";
-   }
+   	/**
+   	 * Returns web page indicating that user has logged out successfully 
+   	 * @param model
+   	 * @return logout successful Web page 
+   	 */
+   	@RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
+   	public String logoutSuccessfulPage(Model model) {
+   		model.addAttribute("title", "Logout");
+   		return "logoutSuccessfulPage";
+   	}
  
-   @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
-   public String userInfo(Model model, Principal principal) {
+   	/**
+   	 * Returns a user's profile page
+   	 * @param model
+   	 * @param principal
+   	 * @return User Profile web page
+   	 */
+   	@RequestMapping(value = "/userInfo", method = RequestMethod.GET)
+   	public String userInfo(Model model, Principal principal) {
+   		// After user login successfully.
+   		String userName = principal.getName();
  
-       // After user login successfully.
-       String userName = principal.getName();
+   		System.out.println("User Name: "+ userName);
  
-       System.out.println("User Name: "+ userName);
- 
-       return "userInfoPage";
-   }
+   		return "userInfoPage";
+   	}
    
-   @RequestMapping("/product/{id}")
+   	/**
+   	 * Returns web page of specific project given ID
+   	 * @param model
+   	 * @return Product web page
+   	 */
+   	@RequestMapping("/product/{id}")
 	public String product(Model model){
 		//using id=1 as a test
 		List<Product> product = product_repository.findByid(1);
@@ -66,9 +100,14 @@ public class MainController {
 		return "product";
 	}
  
-   @RequestMapping(value = "/403", method = RequestMethod.GET)
-   public String accessDenied(Model model, Principal principal) {
-        
+   	/**
+   	 * Return error page if user hasn't permission to view page
+   	 * @param model
+   	 * @param principal
+   	 * @return Error Web page
+   	 */
+   	@RequestMapping(value = "/403", method = RequestMethod.GET)
+   	public String accessDenied(Model model, Principal principal) {    
        if (principal != null) {
            model.addAttribute("message", "Hi " + principal.getName()
                    + "<br> You do not have permission to access this page!");
@@ -77,5 +116,5 @@ public class MainController {
                    "You do not have permission to access this page!");
        }
        return "403Page";
-   }
+   	}
 }
