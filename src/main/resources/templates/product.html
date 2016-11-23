@@ -5,14 +5,30 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h1>Product</h1>
-	
-	<p>Name: <span th:text="${product.getproductName()}">Product Name</span></p>
-	<p>Description: <span th:text="${product.getProductDescription()}">Product Description</span></p>
-	<p>Goal: <span th:text="${product.getProductGoal()}">Product Goal</span></p>
-	<p>Current Raised: <span th:text="${product.getCurrentRasied()}">Current Raised</span></p>
-	<p>Start Date: <span th:text="${product.getStartDate()}">Start Date</span></p>
-	<p>End Date: <span th:text="${product.getEndDate()}">End Date</span></p>
+	<div class="container">
+		<table class="table">
+		<thead>
+			<tr>
+				<th>Product ID:</th>
+				<th>Product Name:</th>
+				<th>Product Description</th>
+				<th>Product Goal</th>
+				<th>Current Raised</th>
+				<th>Harvey Says:</th>
+			</tr>
+		</thead>
+			<tr th:each="product : ${product}">
+				<tr>
+					<th th:text="${product.getId()}"></th>
+					<th th:text="${product.getProductName()}"></th>
+					<th th:text="${product.getProductDescription()}"></th>
+					<th th:text="${product.getProductGoal()}"></th>
+					<th th:text="${product.getCurrentRasied()}"></th>
+					<th><a th:href="@{/product/} + ${product.getId()}" class="btn btn-success"><span th:text="${product.getProductName()}"></span></a></th>
+				</tr>		
+			</tr>
+		</table>
+	</div>
 	
  </body>
 </html>

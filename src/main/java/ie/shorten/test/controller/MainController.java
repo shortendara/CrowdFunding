@@ -32,7 +32,7 @@ public class MainController extends WebMvcConfigurerAdapter {
 	 * @param model
 	 * @return Web page listing all products
 	 */
-   	@RequestMapping("/allProducts")
+   	@RequestMapping("/product/all")
 	public String index(Model model){
 		List<Product> product_list = product_repository.findAll();
 		model.addAttribute("product_list", product_list);
@@ -87,7 +87,7 @@ public class MainController extends WebMvcConfigurerAdapter {
 	public String product(Model model){
 		//using id=1 as a test
 	List<Product> product = product_repository.findByid(1);
-	model.addAttribute("product_id", product);
+	model.addAttribute("product", product);
 	return "product";
 	}
  
