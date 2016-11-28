@@ -23,10 +23,10 @@ public class MainController extends WebMvcConfigurerAdapter {
 	ProductRepository product_repository;
 	 @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        //registry.addViewController("/home").setViewName("login");
-        registry.addViewController("/").setViewName("login");
+		registry.addViewController("/").setViewName("login");
         registry.addViewController("/login").setViewName("login");
     }
+	 
 	/**
 	 * 
 	 * @param model
