@@ -66,17 +66,23 @@ public class MainController extends WebMvcConfigurerAdapter {
    	/**
    	 * Returns a user's profile page
    	 * @param model
-   	 * @param principal
    	 * @return User Profile web page
    	 */
-   	@RequestMapping(value = "/userInfo", method = RequestMethod.GET)
-   	public String userInfo(Model model, Principal principal) {
-   		// After user login successfully.
-   		String userName = principal.getName();
+   	@RequestMapping(value = "/user/{id}/profile", method = RequestMethod.GET)
+   	public String user_profile(Model model, @PathVariable int id) {
  
-   		System.out.println("User Name: "+ userName);
+   		return "user_profile";
+   	}
+   	
+   	/**
+   	 * 
+   	 * @param model
+   	 * @return Web page containing user's products
+   	 */
+   	@RequestMapping(value = "/user/{id}/products", method = RequestMethod.GET)
+   	public String user_products(Model model) {
  
-   		return "userInfoPage";
+   		return "user_products";
    	}
    
    	/**
