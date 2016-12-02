@@ -34,6 +34,9 @@ public class Product {
 	@ManyToMany(mappedBy="products")
 	private List<User> users;
 	
+	private Date start_date;
+	private Date end_date;
+	
 	public Product(){}
 	
 	public Product(int id, String productName, String productDescription, double productGoal, double currentRaised){
@@ -85,6 +88,21 @@ public class Product {
 		this.currentRaised = currentRaised;
 	}
 
+	public Date getStart_date() {
+		return start_date;
+	}
+
+	public void setStart_date(Date start_date) {
+		this.start_date = start_date;
+	}
+
+	public Date getEnd_date() {
+		return end_date;
+	}
+
+	public void setEnd_date(Date end_date) {
+		this.end_date = end_date;
+	}
 
 	@Override
 	public String toString() {
