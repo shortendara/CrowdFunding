@@ -40,60 +40,43 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
       </ul>
     </div>
   </div>
-  </nav>
-  
-  
-   
-  <div class="container-fluid" >
-  	<div class="row">
-  		<div class="col-md-6">
-			
-		<table class = "table">
-			<tr th:each="product : ${product}">
-				<th>Product ID:</th>
-				<td th:text="${product.getId()}"></td>
-			</tr>
-		
-			<tr th:each="product : ${product}">
-				<th>Product Name:</th>
-				<td th:text="${product.getProductName()}"></td>
-			</tr>
-			<tr th:each="product : ${product}">
-				<th>Product Description:</th>
-				<td th:text="${product.getProductDescription()}"></td>
-			</tr>
-			<tr th:each="product : ${product}">
-				<th>Product Goal:</th>
-				<td th:text="${product.getProductGoal()}"></td>
-			</tr>
-			<tr th:each="product : ${product}">
-				<th>Current Raised:</th>
-				<td th:text="${product.getCurrentRasied()}"></td>
-			</tr>
-			<tr th:each="product : ${product}">
-				<th><a th:href="@{/product/} + ${product.getId()}" class="btn btn-success" width = "200"><span th:text="Donate"></span></a></th>
-				
-			</tr>
-			
-			
-		
-		</table>
-
-		</div>
-	
-  		
-  			<div class="col-md-6">			
-		  			<div class="embed-resposive embed-resposive-16by9" >
-		  				<iframe class = "embed-responsive-item" width = "500" height = "315" src="http://youtube.com/embed/ClHu3XQBnGU" allowfullscreen=""></iframe>
-		  			</div>
-		  		
+  </nav> 
+	  <div class="container-fluid" >
+	  	<div class="row">
+	  		<div class="col-md-6">	
+				<table class = "table">
+					<tr th:each="product : ${product}">
+						<tr>
+							<th>Product ID:</th>
+							<td th:text="${product.getId()}"></td>
+						</tr>
+						<tr>
+							<th>Product Name:</th>
+							<td th:text="${product.getProductName()}"></td>
+						</tr>
+						<tr>
+							<th>Product Description:</th>
+							<td th:text="${product.getProductDescription()}"></td>
+						</tr>
+						<tr>
+							<th>Product Goal:</th>
+							<td th:text="${product.getProductGoal()}"></td>
+						</tr>
+						<tr>
+							<th>Current Raised:</th>
+							<td th:text="${product.getCurrentRasied()}"></td>
+						</tr>
+					</tr>
+				</table>
+			</div>
+			<!--  
+	 		<div class="col-md-6">			
+	  			<div class="embed-resposive embed-resposive-16by9">
+					<iframe class = "embed-responsive-item" width = "500" height = "315" th:src="@{product.getYoutube_url()"></iframe>
+	  			</div>
 		  	</div>
+		  	-->
+		</div>
 	</div>
-	</div>
-			  
-  		
-  	
-	
-	
- </body>
+	</body>
 </html>
