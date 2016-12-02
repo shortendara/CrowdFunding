@@ -1,34 +1,99 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+
 <head>
 	<title>Index</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" th:href="@{/bootstrap.min.css}" href="../static/bootstrap.min.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  	
 </head>
-<body>
-	<div class="container">
-		<table class="table">
-		<thead>
-			<tr>
-				<th>Product ID:</th>
-				<th>Product Name:</th>
-				<th>Product Description</th>
-				<th>Product Goal</th>
-				<th>Current Raised</th>
-				<th>Harvey Says:</th>
-			</tr>
-		</thead>
+
+<body style="background-color: #f4f2f2">
+ 
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/product/all">Home</a>
+    </div>
+
+    
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Username <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">View Profile</a></li>
+            <li><a href="#">My Products</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+  </nav>
+  
+  
+   
+  <div class="container-fluid" >
+  	<div class="row">
+  		<div class="col-md-6">
+			
+		<table class = "table">
 			<tr th:each="product : ${product}">
-				<tr>
-					<th th:text="${product.getId()}"></th>
-					<th th:text="${product.getProductName()}"></th>
-					<th th:text="${product.getProductDescription()}"></th>
-					<th th:text="${product.getProductGoal()}"></th>
-					<th th:text="${product.getCurrentRasied()}"></th>
-					<th><a th:href="@{/product/} + ${product.getId()}" class="btn btn-success"><span th:text="${product.getProductName()}"></span></a></th>
-				</tr>		
+				<th>Product ID:</th>
+				<td th:text="${product.getId()}"></td>
 			</tr>
+		
+			<tr th:each="product : ${product}">
+				<th>Product Name:</th>
+				<td th:text="${product.getProductName()}"></td>
+			</tr>
+			<tr th:each="product : ${product}">
+				<th>Product Description:</th>
+				<td th:text="${product.getProductDescription()}"></td>
+			</tr>
+			<tr th:each="product : ${product}">
+				<th>Product Goal:</th>
+				<td th:text="${product.getProductGoal()}"></td>
+			</tr>
+			<tr th:each="product : ${product}">
+				<th>Current Raised:</th>
+				<td th:text="${product.getCurrentRasied()}"></td>
+			</tr>
+			<tr th:each="product : ${product}">
+				<th><a th:href="@{/product/} + ${product.getId()}" class="btn btn-success" width = "200"><span th:text="Donate"></span></a></th>
+				
+			</tr>
+			
+			
+		
 		</table>
+
+		</div>
+	
+  		
+  			<div class="col-md-6">			
+		  			<div class="embed-resposive embed-resposive-16by9" >
+		  				<iframe class = "embed-responsive-item" width = "500" height = "315" src="http://youtube.com/embed/ClHu3XQBnGU" allowfullscreen=""></iframe>
+		  			</div>
+		  		
+		  	</div>
 	</div>
+	</div>
+			  
+  		
+  	
+	
 	
  </body>
 </html>
