@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -84,12 +85,13 @@ public class MainController extends WebMvcConfigurerAdapter {
    	 * @return Product web page
    	 */
    	@RequestMapping("/product/{id}")
-	public String product(Model model){
+	public String product(Model model, @PathVariable int id){
 		//using id=1 as a test
-	List<Product> product = product_repository.findByid(1);
+	List<Product> product = product_repository.findByid(id);
 	model.addAttribute("product", product);
 	return "product";
 	}
+   	
  
    	/**
    	 * Return error page if user hasn't permission to view page
