@@ -16,6 +16,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import ie.shorten.test.entity.Product;
+import ie.shorten.test.entity.User;
 import ie.shorten.test.repository.ProductRepository;
 import ie.shorten.test.repository.UserRepository;
  
@@ -27,6 +28,8 @@ public class MainController extends WebMvcConfigurerAdapter {
 	ProductRepository product_repository;
 	@Autowired
 	UserRepository user_repository;
+	
+	Authentication auth;
 	 @Override
     public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("login");
@@ -73,10 +76,11 @@ public class MainController extends WebMvcConfigurerAdapter {
    	 */
    	@RequestMapping(value = "/user/{id}/profile", method = RequestMethod.GET)
    	public String user_profile(Model model, @PathVariable int id) {
-   		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+   		auth = SecurityContextHolder.getContext().getAuthentication();
    		String user_name = auth.getName();
-   		System.out.println(user_name);
-   		//model.addAttribute();
+   		//List<User> user = user_repository.findByuserName(user_name);
+   		//model.addAttribute("user", user);
+   		model.addAttribute("user", user_name);
    		return "user_profile";
    	}
    	
