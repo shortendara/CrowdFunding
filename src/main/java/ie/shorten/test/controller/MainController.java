@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import ie.shorten.test.entity.Product;
 import ie.shorten.test.repository.ProductRepository;
+import ie.shorten.test.repository.UserRepository;
  
 @Configuration
 @Controller
@@ -22,6 +25,8 @@ public class MainController extends WebMvcConfigurerAdapter {
  
 	@Autowired
 	ProductRepository product_repository;
+	@Autowired
+	UserRepository user_repository;
 	 @Override
     public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("login");
@@ -49,9 +54,7 @@ public class MainController extends WebMvcConfigurerAdapter {
    	public String adminPage(Model model) {
    		return "adminPage";
    	}
- 
    	
- 
    	/**
    	 * Returns web page indicating that user has logged out successfully 
    	 * @param model
@@ -70,7 +73,10 @@ public class MainController extends WebMvcConfigurerAdapter {
    	 */
    	@RequestMapping(value = "/user/{id}/profile", method = RequestMethod.GET)
    	public String user_profile(Model model, @PathVariable int id) {
- 
+   		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+   		String user_name = auth.getName();
+   		System.out.println(user_name);
+   		//model.addAttribute();
    		return "user_profile";
    	}
    	
