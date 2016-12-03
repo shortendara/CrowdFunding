@@ -78,9 +78,8 @@ public class MainController extends WebMvcConfigurerAdapter {
    	public String user_profile(Model model, @PathVariable int id) {
    		auth = SecurityContextHolder.getContext().getAuthentication();
    		String user_name = auth.getName();
-   		//List<User> user = user_repository.findByuserName(user_name);
-   		//model.addAttribute("user", user);
-   		model.addAttribute("user", user_name);
+   		List<User> user = user_repository.findByuserName(user_name);
+   		model.addAttribute("user", user);
    		return "user_profile";
    	}
    	
@@ -91,7 +90,10 @@ public class MainController extends WebMvcConfigurerAdapter {
    	 */
    	@RequestMapping(value = "/user/{id}/products", method = RequestMethod.GET)
    	public String user_products(Model model) {
- 
+   		auth = SecurityContextHolder.getContext().getAuthentication();
+   		String user_name = auth.getName();
+   		List<User> user = user_repository.findByuserName(user_name);
+   		model.addAttribute("user", user);
    		return "user_products";
    	}
    
@@ -102,7 +104,12 @@ public class MainController extends WebMvcConfigurerAdapter {
    	 */
    	@RequestMapping("/product/{id}")
 	public String product(Model model, @PathVariable int id){
-		//using id=1 as a test
+   	/*Get user that is logged in*/
+	auth = SecurityContextHolder.getContext().getAuthentication();
+	String user_name = auth.getName();
+	List<User> user = user_repository.findByuserName(user_name);
+	model.addAttribute("user", user);
+	/*Retrieve product based on ID*/
 	List<Product> product = product_repository.findByid(id);
 	model.addAttribute("product", product);
 	return "product";
