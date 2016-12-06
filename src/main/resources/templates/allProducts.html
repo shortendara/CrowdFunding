@@ -25,16 +25,12 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 
     
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right" th:each="user : ${user}">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Profile<span class="caret"></span></a>
           <ul class="dropdown-menu">
-          <!--
-            <li><a th:href="@{/user/} + ${user.getId()} + /profile">View Profile</a></li>
-            <li><a th:href="@{/user/} + ${user.getId()} + /products">My Products</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Logout</a></li>
-            -->
+            <li><a th:href="@{/user/profile/} + ${user.getId()}">View Profile</a></li>
+            <li><a th:href="@{/user/products/} + ${user.getId()}">My Products</a></li>
           </ul>
         </li>
       </ul>
@@ -60,7 +56,7 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 					<th th:text="${product.getProductDescription()}"></th>
 					<th th:text="${product.getProductGoal()}"></th>
 					<th th:text="${product.getCurrentRasied()}"></th>
-					<th><a th:href="@{/product/} + ${product.getId()}" class="btn btn-success"><span th:text="${product.getProductName()}"></span></a></th>
+					<th><a th:href="@{/product/} + ${product.getId()}" class="btn btn-success"><span th:text="View"></span></a></th>
 				</tr>		
 			</tr>
 		</table>
