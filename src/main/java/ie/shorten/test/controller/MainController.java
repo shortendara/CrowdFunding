@@ -43,9 +43,35 @@ public class MainController extends WebMvcConfigurerAdapter {
 	 */
    	@RequestMapping("/product/all")
 	public String index(Model model){
+   		//Find all products within the database
 		List<Product> product_list = product_repository.findAll();
 		model.addAttribute("product_list", product_list);
+		
+		//Find current user that is logged in
+		String user_name = auth.getName();
+		List<User> user = user_repository.findByuserName(user_name);
+		model.addAttribute("user", user.get(0));
+		
+		//Return all_products page
 		return "allProducts";
+	}
+   	
+   	/**
+   	 * Returns web page of specific project given ID
+   	 * @param model
+   	 * @return Product web page
+   	 */
+   	@RequestMapping("/product/{id}")
+	public String product(Model model, @PathVariable int id){
+	   	/*Get user that is logged in*/
+		auth = SecurityContextHolder.getContext().getAuthentication();
+		String user_name = auth.getName();
+		List<User> user = user_repository.findByuserName(user_name);
+		model.addAttribute("user", user);
+		/*Retrieve product based on ID*/
+		List<Product> product = product_repository.findByid(id);
+		model.addAttribute("product", product);
+		return "product";
 	}
    
    	/**
@@ -97,25 +123,6 @@ public class MainController extends WebMvcConfigurerAdapter {
    		return "user_products";
    	}
    
-   	/**
-   	 * Returns web page of specific project given ID
-   	 * @param model
-   	 * @return Product web page
-   	 */
-   	@RequestMapping("/product/{id}")
-	public String product(Model model, @PathVariable int id){
-   	/*Get user that is logged in*/
-	auth = SecurityContextHolder.getContext().getAuthentication();
-	String user_name = auth.getName();
-	List<User> user = user_repository.findByuserName(user_name);
-	model.addAttribute("user", user);
-	/*Retrieve product based on ID*/
-	List<Product> product = product_repository.findByid(id);
-	model.addAttribute("product", product);
-	return "product";
-	}
-   	
- 
    	/**
    	 * Return error page if user hasn't permission to view page
    	 * @param model
