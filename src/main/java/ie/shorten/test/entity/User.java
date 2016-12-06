@@ -17,6 +17,18 @@ import javax.persistence.Table;
 @Table(name="users")
 public class User {
 	
+	public User(int id, String userName, String password, List<Product> products) {
+		super();
+		this.id = id;
+		this.userName = userName;
+		this.password = password;
+		this.products = products;
+	}
+	
+	public User(){
+		
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
