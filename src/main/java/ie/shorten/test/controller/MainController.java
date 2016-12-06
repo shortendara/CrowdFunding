@@ -9,7 +9,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -119,7 +121,7 @@ public class MainController extends WebMvcConfigurerAdapter {
    	 * @return Web page containing user's products
    	 */
    	@RequestMapping(value = "/user/product/edit/{id}", method = RequestMethod.GET)
-   	public String user_products(Model model, @PathVariable int id) {
+   	public String product_update(Model model, @PathVariable int id) {
    		auth = SecurityContextHolder.getContext().getAuthentication();
    		String user_name = auth.getName();
    		List<User> user = user_repository.findByuserName(user_name);
@@ -128,6 +130,12 @@ public class MainController extends WebMvcConfigurerAdapter {
    		/*Find product id*/
    		model.addAttribute("product", product_repository.findByid(id));
    		return "user_product_edit";
+   	}
+   	
+   	@PostMapping(value = "/user/product/edit/{id}")
+   	public String product_update_submit(@ModelAttribute Product product){
+   		return null;
+   		
    	}
    
    	/**
