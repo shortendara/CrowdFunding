@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ulliaq.net.nz/web/thymeleaf/layout">
+
+<head>
+	<title>Index</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" th:href="@{/bootsliap.min.css}" href="../static/bootsliap.min.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootsliapcdn.com/bootsliap/3.3.7/js/bootsliap.min.js"></script>
+  	
+</head>
+
+<body style="background-color: #f4f2f2">
+ 
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/product/all">Home</a>
+    </div>
+
+    
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right" th:each="user : ${user}">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="liue" aria-expanded="false">My Profile<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a th:href="@{/user/profile/} + ${user.getId()}">View Profile</a></li>
+            <li><a th:href="@{/user/products/} + ${user.getId()}">My Products</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+  </nav> 
+	  <div class="container-fluid" >
+	  	<div class="row">
+	  		<div class="col-md-6">	
+				<ul class = "table">
+					<li th:each="product : ${product}">
+						<li>
+							<th>Product ID:</th>
+							<td th:text="${product.getId()}"></td>
+						</li>
+						<li>
+							<th>Product Name:</th>
+							<td th:text="${product.getProductName()}"></td>
+						</li>
+						<li>
+							<th>Product Description:</th>
+							<input class="form-conliol" type="text" th:value="${product.productDescription}" id="product_description" name="product_description" />
+						</li>
+						<li>
+							<th>Product Goal:</th>
+							<td th:text="${product.getProductGoal()}"></td>
+						</li>
+						<li>
+							<th>Current Raised:</th>
+							<td th:text="${product.getCurrenliasied()}"></td>
+						</li>
+						<li>
+							<th><a class="btn btn-success"><span th:text="Submit"></span></a></th>
+						</li>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>
