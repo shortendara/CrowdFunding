@@ -100,7 +100,7 @@ public class MainController extends WebMvcConfigurerAdapter {
    	 * @param model
    	 * @return User Profile web page
    	 */
-   	@RequestMapping(value = "/user/{id}/profile", method = RequestMethod.GET)
+   	@RequestMapping(value = "/user/profile/{id}", method = RequestMethod.GET)
    	public String user_profile(Model model, @PathVariable int id) {
    		auth = SecurityContextHolder.getContext().getAuthentication();
    		String user_name = auth.getName();
@@ -114,12 +114,14 @@ public class MainController extends WebMvcConfigurerAdapter {
    	 * @param model
    	 * @return Web page containing user's products
    	 */
-   	@RequestMapping(value = "/user/{id}/products", method = RequestMethod.GET)
+   	@RequestMapping(value = "/user/products/{id}", method = RequestMethod.GET)
    	public String user_products(Model model) {
    		auth = SecurityContextHolder.getContext().getAuthentication();
    		String user_name = auth.getName();
    		List<User> user = user_repository.findByuserName(user_name);
    		model.addAttribute("user", user);
+   		
+   		/*Find products by user id*/
    		return "user_products";
    	}
    
