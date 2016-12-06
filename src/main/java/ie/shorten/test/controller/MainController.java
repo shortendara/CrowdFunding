@@ -106,6 +106,7 @@ public class MainController extends WebMvcConfigurerAdapter {
    		String user_name = auth.getName();
    		List<User> user = user_repository.findByuserName(user_name);
    		model.addAttribute("user", user);
+   		/*Find products by user id*/
    		return "user_profile";
    	}
    	
@@ -115,7 +116,7 @@ public class MainController extends WebMvcConfigurerAdapter {
    	 * @return Web page containing user's products
    	 */
    	@RequestMapping(value = "/user/products/{id}", method = RequestMethod.GET)
-   	public String user_products(Model model) {
+   	public String user_products(Model model, @PathVariable int id) {
    		auth = SecurityContextHolder.getContext().getAuthentication();
    		String user_name = auth.getName();
    		List<User> user = user_repository.findByuserName(user_name);
