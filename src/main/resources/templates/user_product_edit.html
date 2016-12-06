@@ -1,17 +1,25 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ulliaq.net.nz/web/thymeleaf/layout">
+xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 
 <head>
 	<title>Index</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" th:href="@{/bootsliap.min.css}" href="../static/bootsliap.min.css" />
+	<link rel="stylesheet" th:href="@{/bootstrap.min.css}" href="../static/bootstrap.min.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  	<script src="https://maxcdn.bootsliapcdn.com/bootsliap/3.3.7/js/bootsliap.min.js"></script>
-  	
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  	<style type="text/css">
+  		#product_description{
+  			width: 50%;
+  		}
+  		body{
+  			background-color: #f4f2f2;
+  		}
+  	</style> 	
 </head>
 
-<body style="background-color: #f4f2f2">
+<body>
  
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -29,7 +37,7 @@ xmlns:layout="http://www.ulliaq.net.nz/web/thymeleaf/layout">
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right" th:each="user : ${user}">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="liue" aria-expanded="false">My Profile<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Profile<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a th:href="@{/user/profile/} + ${user.getId()}">View Profile</a></li>
             <li><a th:href="@{/user/products/} + ${user.getId()}">My Products</a></li>
@@ -41,36 +49,38 @@ xmlns:layout="http://www.ulliaq.net.nz/web/thymeleaf/layout">
   </nav> 
 	  <div class="container-fluid" >
 	  	<div class="row">
-	  		<div class="col-md-6">	
-				<ul class = "table">
-					<li th:each="product : ${product}">
-						<li>
-							<th>Product ID:</th>
-							<td th:text="${product.getId()}"></td>
-						</li>
-						<li>
-							<th>Product Name:</th>
-							<td th:text="${product.getProductName()}"></td>
-						</li>
-						<li>
-							<th>Product Description:</th>
-							<input class="form-conliol" type="text" th:value="${product.productDescription}" id="product_description" name="product_description" />
-						</li>
-						<li>
-							<th>Product Goal:</th>
-							<td th:text="${product.getProductGoal()}"></td>
-						</li>
-						<li>
-							<th>Current Raised:</th>
-							<td th:text="${product.getCurrenliasied()}"></td>
-						</li>
-						<li>
-							<th><a class="btn btn-success"><span th:text="Submit"></span></a></th>
-						</li>
-					</li>
-				</ul>
+	  		<div class="col-md-8">	
+				<form action="update_product" method="POST">
+					<table class = "table">
+						<tr th:each="product : ${product}">
+							<tr>
+								<th>Product ID:</th>
+								<td th:text="${product.getId()}"></td>
+							</tr>
+							<tr>
+								<th>Product Name:</th>
+								<td th:text="${product.getProductName()}"></td>
+							</tr>
+							<tr>
+								<th>Product Description:</th>
+								<input class="form-control" type="text" th:value="${product.productDescription}" id="product_description" name="product_description" />
+							</tr>
+							<tr>
+								<th>Product Goal:</th>
+								<td th:text="${product.getProductGoal()}"></td>
+							</tr>
+							<tr>
+								<th>Current Raised:</th>
+								<td th:text="${product.getCurrentRasied()}"></td>
+							</tr>
+							<tr>
+								<th><a class="btn btn-success"><span th:text="Submit"></span></a></th>
+							</tr>
+						</tr>
+					</table>
+				</form>
 			</div>
 		</div>
 	</div>
-	</body>
+</body>
 </html>
