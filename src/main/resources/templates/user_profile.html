@@ -29,56 +29,21 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:each="user : ${user}"> <span class="caret"></span></a>
           <ul class="dropdown-menu">
           <!--
             <li><a th:href="@{/user/} + ${user.getId()} + /profile">View Profile</a></li>
             <li><a th:href="@{/user/} + ${user.getId()} + /products">My Products</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#">Logout</a></li>
-           -->
+          -->
           </ul>
         </li>
       </ul>
     </div>
   </div>
-  </nav> 
-	  <div class="container-fluid" >
-	  	<div class="row">
-	  		<div class="col-md-6">	
-				<table class = "table">
-					<tr th:each="product : ${product}">
-						<tr>
-							<th>Product ID:</th>
-							<td th:text="${product.getId()}"></td>
-						</tr>
-						<tr>
-							<th>Product Name:</th>
-							<td th:text="${product.getProductName()}"></td>
-						</tr>
-						<tr>
-							<th>Product Description:</th>
-							<td th:text="${product.getProductDescription()}"></td>
-						</tr>
-						<tr>
-							<th>Product Goal:</th>
-							<td th:text="${product.getProductGoal()}"></td>
-						</tr>
-						<tr>
-							<th>Current Raised:</th>
-							<td th:text="${product.getCurrentRasied()}"></td>
-						</tr>
-					</tr>
-				</table>
-			</div>
-			<!--  
-	 		<div class="col-md-6">			
-	  			<div class="embed-resposive embed-resposive-16by9">
-					<iframe class = "embed-responsive-item" width = "500" height = "315" th:src="@{product.getYoutube_url()"></iframe>
-	  			</div>
-		  	</div>
-		  	-->
-		</div>
-	</div>
+  </nav>
+
+   
 	</body>
 </html>

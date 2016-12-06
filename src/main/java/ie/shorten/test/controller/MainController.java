@@ -5,15 +5,20 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import ie.shorten.test.entity.Product;
+import ie.shorten.test.entity.User;
 import ie.shorten.test.repository.ProductRepository;
+import ie.shorten.test.repository.UserRepository;
  
 @Configuration
 @Controller
@@ -21,6 +26,10 @@ public class MainController extends WebMvcConfigurerAdapter {
  
 	@Autowired
 	ProductRepository product_repository;
+	@Autowired
+	UserRepository user_repository;
+	
+	Authentication auth;
 	 @Override
     public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("login");
@@ -48,9 +57,7 @@ public class MainController extends WebMvcConfigurerAdapter {
    	public String adminPage(Model model) {
    		return "adminPage";
    	}
- 
    	
- 
    	/**
    	 * Returns web page indicating that user has logged out successfully 
    	 * @param model
@@ -65,17 +72,29 @@ public class MainController extends WebMvcConfigurerAdapter {
    	/**
    	 * Returns a user's profile page
    	 * @param model
-   	 * @param principal
    	 * @return User Profile web page
    	 */
-   	@RequestMapping(value = "/userInfo", method = RequestMethod.GET)
-   	public String userInfo(Model model, Principal principal) {
-   		// After user login successfully.
-   		String userName = principal.getName();
- 
-   		System.out.println("User Name: "+ userName);
- 
-   		return "userInfoPage";
+   	@RequestMapping(value = "/user/{id}/profile", method = RequestMethod.GET)
+   	public String user_profile(Model model, @PathVariable int id) {
+   		auth = SecurityContextHolder.getContext().getAuthentication();
+   		String user_name = auth.getName();
+   		List<User> user = user_repository.findByuserName(user_name);
+   		model.addAttribute("user", user);
+   		return "user_profile";
+   	}
+   	
+   	/**
+   	 * 
+   	 * @param model
+   	 * @return Web page containing user's products
+   	 */
+   	@RequestMapping(value = "/user/{id}/products", method = RequestMethod.GET)
+   	public String user_products(Model model) {
+   		auth = SecurityContextHolder.getContext().getAuthentication();
+   		String user_name = auth.getName();
+   		List<User> user = user_repository.findByuserName(user_name);
+   		model.addAttribute("user", user);
+   		return "user_products";
    	}
    
    	/**
@@ -84,12 +103,18 @@ public class MainController extends WebMvcConfigurerAdapter {
    	 * @return Product web page
    	 */
    	@RequestMapping("/product/{id}")
-	public String product(Model model){
-		//using id=1 as a test
-	List<Product> product = product_repository.findByid(1);
+	public String product(Model model, @PathVariable int id){
+   	/*Get user that is logged in*/
+	auth = SecurityContextHolder.getContext().getAuthentication();
+	String user_name = auth.getName();
+	List<User> user = user_repository.findByuserName(user_name);
+	model.addAttribute("user", user);
+	/*Retrieve product based on ID*/
+	List<Product> product = product_repository.findByid(id);
 	model.addAttribute("product", product);
 	return "product";
 	}
+   	
  
    	/**
    	 * Return error page if user hasn't permission to view page

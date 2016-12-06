@@ -33,15 +33,20 @@ public class Product {
 	
 	@ManyToMany(mappedBy="products")
 	private List<User> users;
+	private Date start_date;
+	private Date end_date;
+	private String youtube_url;
 	
 	public Product(){}
 	
-	public Product(int id, String productName, String productDescription, double productGoal, double currentRaised){
+	public Product(int id, String productName, String productDescription, double productGoal, double currentRaised, Date start_date, Date end_date){
 		this.id=id;
 		this.productName = productName;
 		this.productDescription = productDescription;
 		this.productGoal = productGoal;
 		this.currentRaised = currentRaised;
+		this.start_date = start_date;
+		this.end_date = end_date;
 	}
 	
 	public int getId() {
@@ -85,6 +90,30 @@ public class Product {
 		this.currentRaised = currentRaised;
 	}
 
+	public Date getStart_date() {
+		return start_date;
+	}
+
+	public void setStart_date(Date start_date) {
+		this.start_date = start_date;
+	}
+
+	public Date getEnd_date() {
+		return end_date;
+	}
+
+	public void setEnd_date(Date end_date) {
+		this.end_date = end_date;
+	}
+	
+
+	public String getYoutube_url() {
+		return youtube_url;
+	}
+
+	public void setYoutube_url(String youtube_url) {
+		this.youtube_url = youtube_url;
+	}
 
 	@Override
 	public String toString() {
