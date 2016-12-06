@@ -2,6 +2,7 @@ package ie.shorten.test.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -25,9 +27,12 @@ public class User {
 		this.products = products;
 	}
 	
-	public User(){
-		
-	}
+	public User(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
+	
+	public User(){}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,23 +43,16 @@ public class User {
 	
 	private String password;
 	
+	/*
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="users_products",
 			joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
 			inverseJoinColumns={@JoinColumn(name="product_id", referencedColumnName="id")})
 	public List<Product> products;
-	
-	public User(String userName, String password) {
-        this.userName = userName;
-        this.password = password;
-    }
-
-	/*@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name="artist_movements",
-			joinColumns={@JoinColumn(name="artist_id", referencedColumnName="id")},
-			inverseJoinColumns={@JoinColumn(name="movement_id", referencedColumnName="id")})
-	public List<Product> pledges;
 	*/
+	
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="user")
+	private List<Product> products;
 	
 	public int getId() {
 		return id;
