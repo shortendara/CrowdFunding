@@ -125,8 +125,9 @@ public class MainController extends WebMvcConfigurerAdapter {
    		List<User> user = user_repository.findByuserName(user_name);
    		model.addAttribute("user", user);
    		
-   		/*Find products by user id*/
-   		return "user_products";
+   		/*Find product id*/
+   		model.addAttribute("product", product_repository.findByid(id));
+   		return "user_product_edit";
    	}
    
    	/**
