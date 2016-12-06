@@ -43,7 +43,31 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
     </div>
   </div>
   </nav>
-
-   
+  
+  <div class="container-fluid" >
+	  	<div class="row">
+	  		<div class="col-md-12">	
+				<table class = "table">
+					<tr th:each="user : ${user}">
+						<tr>
+							<th>User ID:</th>
+						    <td th:text="${user.getId()}"></td> 
+						</tr>
+						<tr>
+							<th>User Name:</th>
+						    <td th:text="${user.getUserName()}"></td> 
+						</tr>
+						
+						<tr>
+							<th>Users products:</th>
+							<td th:text="${user.getProducts()}"></td>
+							<!--  <td  th:each="product : ${product}"></td>
+							<td th:text="${product.getProductName()}"></td>-->
+						</tr>						
+					</tr>
+				</table>
+			</div>
+			</div>
+			</div>
 	</body>
 </html>
