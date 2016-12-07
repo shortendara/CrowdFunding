@@ -29,8 +29,8 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Profile<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a th:href="@{/user/profile/} + ${user.getId()}">View Profile</a></li>
-            <li><a th:href="@{/user/products/} + ${user.getId()}">My Products</a></li>
+            <li><a th:href="@{/user/profile/} + ${user.id}">View Profile</a></li>
+            <li><a th:href="@{/user/products/} + ${user.id}">My Products</a></li>
           </ul>
         </li>
       </ul>
@@ -41,21 +41,21 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 		<table class="table">
 		<thead>
 			<tr>
-				<th>Product ID:</th>
 				<th>Product Name:</th>
 				<th>Product Description</th>
 				<th>Product Goal</th>
 				<th>Current Raised</th>
-				<th>Harvey Says:</th>
+				<th>End Date:</th>
+				<th>View Product:</th>
 			</tr>
 		</thead>
 			<tr th:each="product : ${product_list}">
 				<tr>
-					<th th:text="${product.getId()}"></th>
 					<th th:text="${product.getProductName()}"></th>
 					<th th:text="${product.getProductDescription()}"></th>
 					<th th:text="${product.getProductGoal()}"></th>
 					<th th:text="${product.getCurrentRasied()}"></th>
+					<th th:text="${#dates.format(product.end_date, 'dd-MM-yyyy')}"></th>
 					<th><a th:href="@{/product/} + ${product.getId()}" class="btn btn-success"><span th:text="View"></span></a></th>
 				</tr>		
 			</tr>
