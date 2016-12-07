@@ -120,7 +120,7 @@ public class MainController extends WebMvcConfigurerAdapter {
    	 * @param model
    	 * @return Web page containing user's products
    	 */
-   	@RequestMapping(value = "/user/product/edit/{id}", method = RequestMethod.GET)
+   	@RequestMapping(value = "/user/{user_id}/product/edit/{id}", method = RequestMethod.GET)
    	public String product_update(Model model, @PathVariable int id) {
    		auth = SecurityContextHolder.getContext().getAuthentication();
    		String user_name = auth.getName();
@@ -132,10 +132,11 @@ public class MainController extends WebMvcConfigurerAdapter {
    		return "user_product_edit";
    	}
    	
-   	@PostMapping(value = "/user/product/edit/{id}")
+   	@PostMapping(value = "/user/update/product")
    	public String product_update_submit(@ModelAttribute Product product){
-   		return null;
-   		
+   		System.out.println(product.getId());
+   		System.out.println(product.getProductName());
+   		return "redirect:/product/all";
    	}
    
    	/**
