@@ -52,7 +52,7 @@ public class MainController extends WebMvcConfigurerAdapter {
 		//Find current user that is logged in
 		String user_name = auth.getName();
 		List<User> user = user_repository.findByuserName(user_name);
-		model.addAttribute("user", user.get(0));
+		model.addAttribute("user", user);
 		
 		//Return all_products page
 		return "allProducts";
@@ -139,6 +139,12 @@ public class MainController extends WebMvcConfigurerAdapter {
    		return "redirect:/product/all";
    	}
    
+   	
+   	@PostMapping(value="/donate")
+   	public String donate(Model model){
+   		
+   		return "redirect:/product/all";
+   	}
    	/**
    	 * Return error page if user hasn't permission to view page
    	 * @param model
