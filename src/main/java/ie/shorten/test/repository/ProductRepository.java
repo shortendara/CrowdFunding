@@ -29,4 +29,6 @@ public interface ProductRepository extends CrudRepository<Product, Integer>{
 	 */
 	public List<Product> findByid(int id);
 	
+	public List<Product> findByuser_id(int id);
+	
 }

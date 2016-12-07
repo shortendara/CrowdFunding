@@ -9,7 +9,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -106,6 +108,10 @@ public class MainController extends WebMvcConfigurerAdapter {
    		String user_name = auth.getName();
    		List<User> user = user_repository.findByuserName(user_name);
    		model.addAttribute("user", user);
+   		
+   		/*Find products by user id*/
+   		List<Product> user_products = product_repository.findByuser_id(id);
+   		model.addAttribute("user_products", user_products);
    		return "user_profile";
    	}
    	
@@ -114,15 +120,22 @@ public class MainController extends WebMvcConfigurerAdapter {
    	 * @param model
    	 * @return Web page containing user's products
    	 */
-   	@RequestMapping(value = "/user/products/{id}", method = RequestMethod.GET)
-   	public String user_products(Model model) {
+   	@RequestMapping(value = "/user/product/edit/{id}", method = RequestMethod.GET)
+   	public String product_update(Model model, @PathVariable int id) {
    		auth = SecurityContextHolder.getContext().getAuthentication();
    		String user_name = auth.getName();
    		List<User> user = user_repository.findByuserName(user_name);
    		model.addAttribute("user", user);
    		
-   		/*Find products by user id*/
-   		return "user_products";
+   		/*Find product id*/
+   		model.addAttribute("product", product_repository.findByid(id));
+   		return "user_product_edit";
+   	}
+   	
+   	@PostMapping(value = "/user/product/edit/{id}")
+   	public String product_update_submit(@ModelAttribute Product product){
+   		return null;
+   		
    	}
    
    	/**

@@ -8,10 +8,18 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 	<link rel="stylesheet" th:href="@{/bootstrap.min.css}" href="../static/bootstrap.min.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  	
+
+  	<style type="text/css">
+  		#product_description{
+  			width: 50%;
+  		}
+  		body{
+  			background-color: #f4f2f2;
+  		}
+  	</style> 	
 </head>
 
-<body style="background-color: #f4f2f2">
+<body>
  
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -38,35 +46,41 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
       </ul>
     </div>
   </div>
-  </nav>
-  
-  <div class="container-fluid" >
+  </nav> 
+	  <div class="container-fluid" >
 	  	<div class="row">
-	  		<div class="col-md-12">	
-				<table class = "table">
-					<tr th:each="user : ${user}">
-						<tr>
-							<th>User ID:</th>
-						    <td th:text="${user.getId()}"></td> 
+	  		<div class="col-md-8">	
+				<form action="update_product" method="POST">
+					<table class = "table">
+						<tr th:each="product : ${product}">
+							<tr>
+								<th>Product ID:</th>
+								<td th:text="${product.getId()}"></td>
+							</tr>
+							<tr>
+								<th>Product Name:</th>
+								<td th:text="${product.getProductName()}"></td>
+							</tr>
+							<tr>
+								<th>Product Description:</th>
+								<input class="form-control" type="text" th:value="${product.productDescription}" id="product_description" name="product_description" />
+							</tr>
+							<tr>
+								<th>Product Goal:</th>
+								<td th:text="${product.getProductGoal()}"></td>
+							</tr>
+							<tr>
+								<th>Current Raised:</th>
+								<td th:text="${product.getCurrentRasied()}"></td>
+							</tr>
+							<tr>
+								<th><a class="btn btn-success"><span th:text="Submit"></span></a></th>
+							</tr>
 						</tr>
-						<tr>
-							<th>User Name:</th>
-						    <td th:text="${user.getUserName()}"></td> 
-						</tr>
-						<tr>
-							<th>My products:</th>
-							<table th:each="product: ${user_products}">
-                <tr>
-                  <td th:text="${product.productName}"></td>
-                  <td><a th:href="@{/user/product/edit/} + ${product.id}" class="btn"><span th:text="Edit"></span></a></td>
-                </tr>
-                       
-              </table>
-						</tr>						
-					</tr>
-				</table>
+					</table>
+				</form>
 			</div>
-			</div>
-			</div>
-	</body>
+		</div>
+	</div>
+</body>
 </html>
