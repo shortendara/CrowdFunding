@@ -58,7 +58,7 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 							<table th:each="product: ${user_products}">
                 <tr>
                   <td th:text="${product.productName}"></td>
-                  <td><a th:href="@{/user/product/edit/} + ${product.id}" class="btn"><span th:text="Edit"></span></a></td>
+                  <td><a th:href="@{/user/{user_id}/product/edit/(user_id=${user.id})} + ${product.id}" class="btn"><span th:text="Edit"></span></a></td>
                 </tr>
                        
               </table>
