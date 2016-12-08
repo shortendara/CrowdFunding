@@ -14,6 +14,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.sun.istack.internal.NotNull;
+
 @Entity
 @Table(name="products")
 public class Product {
@@ -22,12 +26,15 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
+	@NotNull
 	@Column(name="product_name")
 	private String productName;
 	
+	@NotNull
 	@Column(name="product_description")
 	private String productDescription;
 	
+	@NotNull
 	@Column(name="product_goal")
 	private double productGoal;
 	
@@ -38,9 +45,13 @@ public class Product {
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	
+	@DateTimeFormat (pattern="dd-MM-YYYY")
 	private Date start_date;
+	
+	@NotNull
+	@DateTimeFormat (pattern="dd-MM-YYYY")
 	private Date end_date;
+	
 	private String youtube_url;
 	
 	public Product(){}
