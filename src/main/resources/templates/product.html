@@ -81,7 +81,7 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 							<ul>
 								<li>
 									<h4>Donate:</h4>
-									<input type="number" name="amount" id="amount"  min="1"/>
+									<input type="number" name="amount" id="amount"  th:value="amount" min="1"/>
 								</li>
 								<li id="donate_button">
 									<input type="submit" class="btn btn-success" th:text="Donate" id="donate"></input>

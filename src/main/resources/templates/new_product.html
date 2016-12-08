@@ -48,5 +48,41 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
     </div>
   </div>
   </nav> 
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <form action="#" th:action="@{/user/product/create}"  th:object="${product}" th:method="post">
+            <ul>
+              <li>
+                <h4>Product Name:</h4>
+                <input type="text" name="productName" th:value="${productName}"/>
+              </li>
+              <li>
+                <h4>Product Description:</h4>
+                <input type="text" name="productDescription" id="productDescription" th:attr="value = ${productDescription}"/>
+              </li>
+              <li>
+                <h4>Product Goal</h4>
+                <input type="number" name="productGoal" th:value="${productGoal}"/>
+              </li>
+              <li>
+                <!--Hidden values -->
+                <input type="hidden" name="currentRaised" th:value="0" />
+                <input type="hidden" name="start_date" th:value="${#dates.format(#dates.createNow(), 'dd-MM-yyyy')}" />
+              </li>
+              <li>
+              	<h4>End Date:</h4>
+                <input type="date" name="end_date" th:value="${end_date}" />
+              </li>
+              <li>
+                <input type="submit" name="submit" class="btn btn-primary" th:Value="Create" />
+                <input type="reset" name="reset" class="btn btn-warning" th:value="Reset" />
+              </li>
+            </ul>
+          </form>
+        </div>
+      </div>
+    </div>
   </body>
-  </html>
+</html>
