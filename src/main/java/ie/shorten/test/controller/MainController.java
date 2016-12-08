@@ -53,10 +53,17 @@ public class MainController extends WebMvcConfigurerAdapter {
 		List<Product> product_list = product_repository.findAll();
 		model.addAttribute("product_list", product_list);
 		
-		//Find current user that is logged in
-		String user_name = auth.getName();
-		User user = user_repository.findByuserName(user_name);
-		model.addAttribute("user", user);
+		try{
+			//Find current user that is logged in
+			String user_name = auth.getName();
+			User user = user_repository.findByuserName(user_name);
+			model.addAttribute("user", user);
+		}catch(NullPointerException ne){
+			ne.printStackTrace();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 		
 		//Return all_products page
 		return "allProducts";
