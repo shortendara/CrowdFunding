@@ -3,6 +3,7 @@ package ie.shorten.test.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -44,6 +46,9 @@ public class Product {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private User user;
+	
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="product")
+	private List<Pledge> pledges;
 	
 	@DateTimeFormat (pattern="dd-MM-YYYY")
 	private Date start_date;
@@ -83,7 +88,6 @@ public class Product {
 		this.productName = name;
 	}
 
-
 	public String getProductDescription() {
 		return productDescription;
 	}
@@ -100,12 +104,21 @@ public class Product {
 		this.productGoal = productGoal;
 	}
 
-	public double getCurrentRasied() {
+	public double getCurrentRaised() {
 		return currentRaised;
 	}
 
-	public void setCurrentRasied(double currentRaised) {
+	public void setCurrentRaised(double currentRaised) {
 		this.currentRaised = currentRaised;
+	}
+	
+	private Double calculate_current_raised(List<Pledge> pledges){
+		double total_raised = 0;
+		for(Pledge pledge : pledges){
+			total_raised += pledge.getAmount();
+		}
+		setCurrentRaised(total_raised);
+		return total_raised;
 	}
 
 	public Date getStart_date() {
@@ -124,7 +137,6 @@ public class Product {
 		this.end_date = end_date;
 	}
 	
-
 	public String getYoutube_url() {
 		return youtube_url;
 	}

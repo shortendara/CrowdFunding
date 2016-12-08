@@ -12,6 +12,12 @@
 <body>
 	<div>
 		<table class="table">
+			
+		</table>
+	</div>
+	<div >
+		<form action="#"  th:action="@{/admin/remove/product/{product_id}(product_id = ${product.id})}" method="post">
+			<table class="table">
 			<thead>
 				<tr>
 					<th>Product Name:</th>
@@ -22,19 +28,14 @@
 					<th>Remove Product:</th>
 				</tr>
 			</thead>
-		</table>
-	</div>
-	<div th:each="product : ${all_products}">
-		<form action="#" th:action="@{/admin/remove/product/{product_id}(product_id = ${product.id})}" method="post">
-			<table class="table">
-				<tr>
-					<th th:text="${product.productName}"></th>
-					<th th:text="${product.productDescription}"></th>
-					<th th:text="${product.productGoal}"></th>
-					<th th:text="${product.getCurrentRasied()}"></th>
-					<th th:text="${#dates.format(product.end_date, 'dd-MM-yyyy')}"></th>
-					<th><input type="submit" class="btn btn-danger" th:text="Remove"></input></th>
-				</tr>
+			<tr>
+				<th th:text="${product.productName}"></th>
+				<th th:text="${product.productDescription}"></th>
+				<th th:text="${product.productGoal}"></th>
+				<th th:text="${product.currentRaised}"></th>
+				<th th:text="${#dates.format(product.end_date, 'dd-MM-yyyy')}"></th>
+				<th><input type="submit" class="btn btn-danger" th:value="Remove"></input></th>
+			</tr>
 			</table>
 		</form>
 	</div>

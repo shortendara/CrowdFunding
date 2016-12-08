@@ -51,10 +51,10 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 		</thead>
 			<tr th:each="product : ${product_list}">
 				<tr>
-					<th th:text="${product.getProductName()}"></th>
-					<th th:text="${product.getProductDescription()}"></th>
-					<th th:text="${product.getProductGoal()}"></th>
-					<th th:text="${product.getCurrentRasied()}"></th>
+					<th th:text="${product.productName}"></th>
+					<th th:text="${product.productDescription}"></th>
+					<th th:text="${product.productGoal}"></th>
+					<th th:text="${product.currentRaised}"></th>
 					<th th:text="${#dates.format(product.end_date, 'dd-MM-yyyy')}"></th>
 					<th><a th:href="@{/product/} + ${product.getId()}" class="btn btn-success"><span th:text="View"></span></a></th>
 				</tr>		
