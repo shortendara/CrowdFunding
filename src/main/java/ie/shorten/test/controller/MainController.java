@@ -124,6 +124,10 @@ public class MainController extends WebMvcConfigurerAdapter {
    		/*Find products by user id*/
    		List<Product> user_products = product_repository.findByuser_id(id);
    		model.addAttribute("user_products", user_products);
+   		
+   		/*Find all pledges by user*/
+   		List<Pledge> user_pledges = pledge_repository.findByuser_id(id);
+   		model.addAttribute("user_pledges", user_pledges);
    		return "user_profile";
    	}
    	
@@ -178,13 +182,33 @@ public class MainController extends WebMvcConfigurerAdapter {
    				
    			}
    		}
+   		*/
    		if(pledge.getAmount() > user.getCredit()){
    			
-   		}*/
+   		}
    		pledge.setUser(user);
    		pledge.setProduct(product_repository.findByid(product_id));
    		pledge_repository.save(pledge);
    		return "redirect:/product/all";
+   	}
+   	
+   	@PostMapping(value="donate/{product_id}/cancel")
+   	public String cancel_donation(@PathVariable int product_id){
+   		auth = SecurityContextHolder.getContext().getAuthentication();
+   		String user_name = auth.getName();
+   		User user = user_repository.findByuserName(user_name);
+   		
+   		/*Find pledges for given user*/
+   		List<Pledge> pledges = pledge_repository.findByuser_id(user.getId());
+   		
+   		/*Remove pledge for given product id*/
+   		for(Pledge pledge: pledges){
+   			if(pledge.getProduct().getId() == product_id){
+   				pledge_repository.delete(pledge);
+   			}
+   		}
+   		
+   		return "redirect:/user/profile/"+user.getId();
    	}
    	/**
    	 * Return error page if user hasn't permission to view page

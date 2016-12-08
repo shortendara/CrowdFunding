@@ -10,12 +10,7 @@
   	</style>
 </head>
 <body>
-	<div>
-		<table class="table">
-			
-		</table>
-	</div>
-	<div >
+	<div th:each="product : ${all_products}">
 		<form action="#"  th:action="@{/admin/remove/product/{product_id}(product_id = ${product.id})}" method="post">
 			<table class="table">
 			<thead>
