@@ -90,9 +90,8 @@ public class MainController extends WebMvcConfigurerAdapter {
    	
    	@PostMapping(value="admin/remove/product/{product_id}")
    	public String remove_product(@PathVariable int product_id){
-   		
    		product_repository.removeByid(product_id);
-   		return "redirect:/adminPage";
+   		return "redirect:/admin";
    	}
    	
    	/**

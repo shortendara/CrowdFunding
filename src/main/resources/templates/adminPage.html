@@ -25,7 +25,7 @@
 		</table>
 	</div>
 	<div th:each="product : ${all_products}">
-		<form action="#" th:action="@{/admin/remove/product/{product_id}(product_id = ${product.id})}">
+		<form action="#" th:action="@{/admin/remove/product/{product_id}(product_id = ${product.id})}" method="post">
 			<table class="table">
 				<tr>
 					<th th:text="${product.productName}"></th>
@@ -33,7 +33,7 @@
 					<th th:text="${product.productGoal}"></th>
 					<th th:text="${product.getCurrentRasied()}"></th>
 					<th th:text="${#dates.format(product.end_date, 'dd-MM-yyyy')}"></th>
-					<th><a type="submit" class="btn btn-danger" th:text="Remove"></a></th>
+					<th><input type="submit" class="btn btn-danger" th:text="Remove"></input></th>
 				</tr>
 			</table>
 		</form>
