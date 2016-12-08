@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -105,7 +104,7 @@ public class Product {
 	}
 
 	public double getCurrentRaised() {
-		return currentRaised;
+		return calculate_current_raised(pledges);
 	}
 
 	public void setCurrentRaised(double currentRaised) {
@@ -143,6 +142,14 @@ public class Product {
 
 	public void setYoutube_url(String youtube_url) {
 		this.youtube_url = youtube_url;
+	}
+	
+	public List<Pledge> getPledges() {
+		return pledges;
+	}
+
+	public void setPledges(List<Pledge> pledges) {
+		this.pledges = pledges;
 	}
 
 	@Override

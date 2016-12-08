@@ -77,7 +77,7 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 				</table>
 				<ul>
 					<li th:each="product : ${product}">
-						<form action="#" th:action="@{/donate/{product_id}(product_id=${product.id})}" method="post" >
+						<form action="#" th:action="@{/donate/{product_id}(product_id=${product.id})}" method="post" th:object="${pledge}">
 							<ul>
 								<li>
 									<h4>Donate:</h4>

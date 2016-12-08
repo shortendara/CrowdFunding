@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import ie.shorten.test.entity.Pledge;
 import ie.shorten.test.entity.Product;
 import ie.shorten.test.entity.User;
+import ie.shorten.test.repository.PledgeRepository;
 import ie.shorten.test.repository.ProductRepository;
 import ie.shorten.test.repository.UserRepository;
  
@@ -30,6 +32,8 @@ public class MainController extends WebMvcConfigurerAdapter {
 	ProductRepository product_repository;
 	@Autowired
 	UserRepository user_repository;
+	@Autowired
+	PledgeRepository pledge_repository;
 	
 	Authentication auth;
 	 @Override
@@ -51,7 +55,7 @@ public class MainController extends WebMvcConfigurerAdapter {
 		
 		//Find current user that is logged in
 		String user_name = auth.getName();
-		List<User> user = user_repository.findByuserName(user_name);
+		User user = user_repository.findByuserName(user_name);
 		model.addAttribute("user", user);
 		
 		//Return all_products page
@@ -68,7 +72,7 @@ public class MainController extends WebMvcConfigurerAdapter {
 	   	/*Get user that is logged in*/
 		auth = SecurityContextHolder.getContext().getAuthentication();
 		String user_name = auth.getName();
-		List<User> user = user_repository.findByuserName(user_name);
+		User user = user_repository.findByuserName(user_name);
 		model.addAttribute("user", user);
 		/*Retrieve product based on ID*/
 		Product product = product_repository.findByid(id);
@@ -114,7 +118,7 @@ public class MainController extends WebMvcConfigurerAdapter {
    	public String user_profile(Model model, @PathVariable int id) {
    		auth = SecurityContextHolder.getContext().getAuthentication();
    		String user_name = auth.getName();
-   		List<User> user = user_repository.findByuserName(user_name);
+   		User user = user_repository.findByuserName(user_name);
    		model.addAttribute("user", user);
    		
    		/*Find products by user id*/
@@ -144,7 +148,7 @@ public class MainController extends WebMvcConfigurerAdapter {
    	public String product_update(Model model, @PathVariable int id) {
    		auth = SecurityContextHolder.getContext().getAuthentication();
    		String user_name = auth.getName();
-   		List<User> user = user_repository.findByuserName(user_name);
+   		User user = user_repository.findByuserName(user_name);
    		model.addAttribute("user", user);
    		
    		/*Find product id*/
@@ -162,9 +166,24 @@ public class MainController extends WebMvcConfigurerAdapter {
    	}
    
    	
-   	@PostMapping(value="/donate")
-   	public String donate(Model model){
-   		
+   	@PostMapping(value="/donate/{product_id}")
+   	public String donate(@ModelAttribute Pledge pledge, @PathVariable int product_id){
+   		auth = SecurityContextHolder.getContext().getAuthentication();
+   		String user_name = auth.getName();
+   		User user = user_repository.findByuserName(user_name);
+   		List<Product> user_products = user.getProducts();
+   		/*
+   		for(Product product : user_products){
+   			if(product.getId() == product_id){
+   				
+   			}
+   		}
+   		if(pledge.getAmount() > user.getCredit()){
+   			
+   		}*/
+   		pledge.setUser(user);
+   		pledge.setProduct(product_repository.findByid(product_id));
+   		pledge_repository.save(pledge);
    		return "redirect:/product/all";
    	}
    	/**

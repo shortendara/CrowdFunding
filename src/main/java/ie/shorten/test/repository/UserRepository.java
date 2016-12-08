@@ -12,7 +12,7 @@ public interface UserRepository extends CrudRepository<User, Integer>{
 	 * Function to retrieve user based on their user name
 	 * @return User and their details
 	 */
-	public List<User> findByuserName(String userName);
+	public User findByuserName(String userName);
 	
 	/**
 	 * Find user based on user id number
