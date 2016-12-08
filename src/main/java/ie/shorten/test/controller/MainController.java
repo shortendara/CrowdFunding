@@ -124,8 +124,15 @@ public class MainController extends WebMvcConfigurerAdapter {
    	}
    	
    	@RequestMapping(value="/user/{user_id}/product/create", method=RequestMethod.GET)
-   	public String create_product(){
+   	public String get_create_product(){
    		return "new_product";
+   	}
+   	
+   	@PostMapping(value="/user/product/create")
+   	public String post_create_product(@ModelAttribute Product product){
+   		System.out.println(product.getProductName());
+   		product_repository.save(product);
+   		return "redirect:/product/"+product.getId();
    	}
    	
    	/**
