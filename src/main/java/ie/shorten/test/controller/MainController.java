@@ -71,7 +71,7 @@ public class MainController extends WebMvcConfigurerAdapter {
 		List<User> user = user_repository.findByuserName(user_name);
 		model.addAttribute("user", user);
 		/*Retrieve product based on ID*/
-		List<Product> product = product_repository.findByid(id);
+		Product product = product_repository.findByid(id);
 		model.addAttribute("product", product);
 		return "product";
 	}
@@ -124,6 +124,11 @@ public class MainController extends WebMvcConfigurerAdapter {
    		return "user_profile";
    	}
    	
+   	@RequestMapping(value="/user/{user_id}/product/create", method=RequestMethod.GET)
+   	public String create_product(){
+   		return "new_product";
+   	}
+   	
    	/**
    	 * 
    	 * @param model
@@ -141,10 +146,12 @@ public class MainController extends WebMvcConfigurerAdapter {
    		return "user_product_edit";
    	}
    	
-   	@PostMapping(value = "/user/update/product")
-   	public String product_update_submit(@ModelAttribute Product product){
-   		System.out.println(product.getId());
-   		System.out.println(product.getProductName());
+   	@PostMapping(value = "/user/update/product/{product_id}")
+   	public String product_update_submit(@ModelAttribute Product product, @PathVariable("product_id") int product_id){
+   		Product current_product = product_repository.findByid(product_id);
+   		current_product.setProductDescription(product.getProductDescription());
+   		product_repository.save(current_product);
+   		System.out.println(product.getProductDescription());
    		return "redirect:/product/all";
    	}
    
