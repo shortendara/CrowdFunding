@@ -82,11 +82,28 @@ public class User {
 	}
 	
 	public double getCredit() {
-		return credit;
+		return calculate_credit(pledges);
 	}
 
 	public void setCredit(double credit) {
 		this.credit = credit;
+	}
+	
+	private double calculate_credit(List<Pledge> pledges){
+		double total_pledged = 0;
+		for(Pledge pledge : pledges){
+			total_pledged += pledge.getAmount();
+		}
+		setCredit(credit-total_pledged);
+		return credit;
+	}
+
+	public List<Pledge> getPledges() {
+		return pledges;
+	}
+
+	public void setPledges(List<Pledge> pledges) {
+		this.pledges = pledges;
 	}
 
 	@Override
