@@ -46,7 +46,7 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
   
   <div class="container-fluid" >
 	  	<div class="row">
-	  		<div class="col-md-10">	
+	  		<div class="col-md-12">	
 				<table class = "table">
 					<tr th:each="user : ${user}">
 						<tr>
@@ -62,21 +62,55 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 							<td th:text="${user.credit}"></td>
 						</tr>
 						<tr>
-							<th>My products:</th>
-							<tr>
-								<td>
-									<a class="btn btn-success" th:href="@{/user/{user_id}/product/create(user_id=${user.id})}" th:text="Create"></a>
-								</td>
-							</tr>
-							<table th:each="product: ${user_products}" class="table">
-				                <tr>
-				                  <td th:text="${product.productName}"></td>
-				                  <td><a th:href="@{/user/{user_id}/product/edit/(user_id=${user.id})} + ${product.id}" class="btn"><span th:text="Edit"></span></a></td>
-				                </tr>      
-			              	</table>
+							<td>
+								<a class="btn btn-success" th:href="@{/user/{user_id}/product/create(user_id=${user.id})}" th:text="Create"></a>
+							</td>
 						</tr>						
 					</tr>
 				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<h3>Products:</h3>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Product Name:</th>
+							<th>Edit:</th>
+						</tr>
+					</thead>
+					<tr th:each="product : ${user_products}">
+						<tr>
+		                  	<td th:text="${product.productName}"></td>
+		                  	<td><a th:href="@{/user/{user_id}/product/edit/(user_id=${user.id})} + ${product.id}" class="btn btn-primary"><span th:text="Edit"></span></a></td>
+				        </tr>
+					</tr>
+				</table>
+			</div>
+			<div class="col-md-6">
+				<h3>Pledges:</h3>
+				<!---->
+				<form action="#" method="POST" th:each="pledge : ${user_pledges}" th:action="@{/donate/{product_id}/cancel(product_id=${pledge.product.id})}">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Product Name:</th>
+								<th>Pledge Amount:</th>
+								<th>Cancell Pledge</th>
+							</tr>
+						</thead>
+						<tr >
+							<tr>
+								<td th:text="${pledge.product.productName}"></td>
+								<td th:text="${pledge.amount}"></td>
+								<td>
+									<input type="submit" name="cancel_pledge" class="btn btn-danger" th:value="Cancel"/>
+								</td>
+							</tr>
+						</tr>
+					</table>
+				</form>
 			</div>
 		</div>
 	</div>
