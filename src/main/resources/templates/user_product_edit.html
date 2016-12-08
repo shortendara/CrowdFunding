@@ -89,7 +89,7 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 									<input type="hidden" name="product_name" id="product_name" th:value="${product.productName}"></input> 
 								</li>
 								<li th:text="${product.productGoal}"></li>
-								<li th:text="${product.getCurrentRasied()}"></li>
+								<li th:text="${product.currentRaised}"></li>
 								<li th:text="${#dates.format(product.start_date, 'dd-MM-yyyy')}"></li>
 								<li th:text="${#dates.format(product.end_date, 'dd-MM-yyyy')}"></li>
 								<li>
