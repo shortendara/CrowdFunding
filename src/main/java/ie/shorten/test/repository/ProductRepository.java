@@ -2,6 +2,7 @@ package ie.shorten.test.repository;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import ie.shorten.test.entity.Product;
 
@@ -30,5 +31,8 @@ public interface ProductRepository extends CrudRepository<Product, Integer>{
 	public List<Product> findByid(int id);
 	
 	public List<Product> findByuser_id(int id);
+	
+	@Transactional
+	List<Product> removeByid(int id);
 	
 }

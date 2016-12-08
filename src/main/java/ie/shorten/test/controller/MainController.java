@@ -83,7 +83,16 @@ public class MainController extends WebMvcConfigurerAdapter {
    	 */
    	@RequestMapping(value = "/admin", method = RequestMethod.GET)
    	public String adminPage(Model model) {
+   		List<Product> all_products = product_repository.findAll();
+   		model.addAttribute("all_products", all_products);
    		return "adminPage";
+   	}
+   	
+   	@PostMapping(value="admin/remove/product/{product_id}")
+   	public String remove_product(@PathVariable int product_id){
+   		
+   		product_repository.removeByid(product_id);
+   		return "redirect:/adminPage";
    	}
    	
    	/**
