@@ -77,14 +77,14 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 				</table>
 				<ul>
 					<li th:each="product : ${product}">
-						<form action="#" th:action="@{/donate}">
+						<form action="#" th:action="@{/donate/{product_id}(product_id=${product.id})}" method="post" >
 							<ul>
 								<li>
 									<h4>Donate:</h4>
-									<input type="number" min="1"/>
+									<input type="number" name="amount" id="amount"  min="1"/>
 								</li>
 								<li id="donate_button">
-									<a type="submit" class="btn btn-success" th:text="Donate" id="donate"></a>
+									<input type="submit" class="btn btn-success" th:text="Donate" id="donate"></input>
 								</li>
 							</ul>
 						</form>
