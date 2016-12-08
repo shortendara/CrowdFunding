@@ -81,11 +81,12 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 	  		<div class="col-md-8">	
 	  			<ul th:each="product : ${product}">
 		  			<li>
-						<form action="#" th:action="@{/user/update/product/}" th:object="${product}" th:method="POST">
+						<form action="#" th:action="@{/user/update/product/{product_id}(product_id = ${product.id})}" th:object="${product}" th:method="POST">
 							<ul>
 								<li th:text="${product.productName}"></li>
 								<li>
-									<input type="text" name="productDescription" id="productDescription" th:attr="value = ${product.productDescription}"/> 
+									<input type="text" name="productDescription" id="productDescription" th:attr="value = ${product.productDescription}"/>
+									<input type="hidden" name="product_name" id="product_name" th:value="${product.productName}"></input> 
 								</li>
 								<li th:text="${product.productGoal}"></li>
 								<li th:text="${product.getCurrentRasied()}"></li>

@@ -43,13 +43,7 @@ public class User {
 	
 	private String password;
 	
-	/*
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name="users_products",
-			joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
-			inverseJoinColumns={@JoinColumn(name="product_id", referencedColumnName="id")})
-	public List<Product> products;
-	*/
+	private double credit;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="user")
 	private List<Product> products;
@@ -87,6 +81,14 @@ public class User {
 		this.products = products;
 	}
 	
+	public double getCredit() {
+		return credit;
+	}
+
+	public void setCredit(double credit) {
+		this.credit = credit;
+	}
+
 	@Override
 	public String toString() {
 		String out = "User [id=" + id + ", fullName="
