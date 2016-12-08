@@ -46,7 +46,7 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
   
   <div class="container-fluid" >
 	  	<div class="row">
-	  		<div class="col-md-10">	
+	  		<div class="col-md-12">	
 				<table class = "table">
 					<tr th:each="user : ${user}">
 						<tr>
@@ -68,13 +68,19 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 									<a class="btn btn-success" th:href="@{/user/{user_id}/product/create(user_id=${user.id})}" th:text="Create"></a>
 								</td>
 							</tr>
-							<table th:each="product: ${user_products}" class="table">
-				                <tr>
-				                  <td th:text="${product.productName}"></td>
-				                  <td><a th:href="@{/user/{user_id}/product/edit/(user_id=${user.id})} + ${product.id}" class="btn"><span th:text="Edit"></span></a></td>
-				                </tr>      
-			              	</table>
 						</tr>						
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<table class="table">
+					<tr th:each="product : ${user_products}">
+						<tr>
+		                  	<td th:text="${product.productName}"></td>
+		                  	<td><a th:href="@{/user/{user_id}/product/edit/(user_id=${user.id})} + ${product.id}" class="btn"><span th:text="Edit"></span></a></td>
+				        </tr>
 					</tr>
 				</table>
 			</div>
