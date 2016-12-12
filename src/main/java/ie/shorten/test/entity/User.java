@@ -2,15 +2,14 @@ package ie.shorten.test.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -25,9 +24,12 @@ public class User {
 		this.products = products;
 	}
 	
-	public User(){
-		
-	}
+	public User(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
+	
+	public User(){}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,23 +40,13 @@ public class User {
 	
 	private String password;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name="users_products",
-			joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
-			inverseJoinColumns={@JoinColumn(name="product_id", referencedColumnName="id")})
-	public List<Product> products;
+	private double credit;
 	
-	public User(String userName, String password) {
-        this.userName = userName;
-        this.password = password;
-    }
-
-	/*@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name="artist_movements",
-			joinColumns={@JoinColumn(name="artist_id", referencedColumnName="id")},
-			inverseJoinColumns={@JoinColumn(name="movement_id", referencedColumnName="id")})
-	public List<Product> pledges;
-	*/
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="user")
+	private List<Product> products;
+	
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="user")
+	private List<Pledge> pledges;
 	
 	public int getId() {
 		return id;
@@ -89,6 +81,31 @@ public class User {
 		this.products = products;
 	}
 	
+	public double getCredit() {
+		return calculate_credit(pledges);
+	}
+
+	public void setCredit(double credit) {
+		this.credit = credit;
+	}
+	
+	private double calculate_credit(List<Pledge> pledges){
+		double total_pledged = 0;
+		for(Pledge pledge : pledges){
+			total_pledged += pledge.getAmount();
+		}
+		setCredit(credit-total_pledged);
+		return credit;
+	}
+
+	public List<Pledge> getPledges() {
+		return pledges;
+	}
+
+	public void setPledges(List<Pledge> pledges) {
+		this.pledges = pledges;
+	}
+
 	@Override
 	public String toString() {
 		String out = "User [id=" + id + ", fullName="

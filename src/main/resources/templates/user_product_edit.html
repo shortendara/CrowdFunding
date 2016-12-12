@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+
+<head>
+	<title>Index</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" th:href="@{/bootstrap.min.css}" href="../static/bootstrap.min.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  	<style type="text/css">
+  		#product_description{
+  			width: 50%;
+  		}
+  		body{
+  			background-color: #f4f2f2;
+  		}
+  		
+  		#headings{
+  			float:right;
+  		}
+  		
+  		#headings > li{
+  			margin-top: 15%;
+  		}
+  		
+  		ul{
+  			list-style:none;
+  		}
+  		
+  		li{
+  			margin-top:2%;
+  		}
+  		
+  		
+  	</style> 	
+</head>
+
+<body>
+ 
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <a class="navbar-brand" href="/product/all">Home</a>
+		    </div>
+
+		    
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right" th:each="user : ${user}">
+			    	<li class="dropdown">
+				      	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Profile<span class="caret"></span></a>
+				      	<ul class="dropdown-menu">
+				        	<li><a th:href="@{/user/profile/} + ${user.id}">View Profile</a></li>
+				        	<li><a th:href="@{/user/products/} + ${user.id}">My Products</a></li>
+				      	</ul>
+			    	</li>
+		  		</ul>
+		    </div>
+		</div>
+  	</nav> 
+	  <div class="container-fluid" >
+	  	<div class="row">
+	  		<div class="col-md-4">
+	  			<ul id="headings">
+	  				
+	  				<li>Product Name:</li>
+	  				<li>Product Description:</li>
+	  				<li>Product Goal</li>
+	  				<li>Currently Raised</li>
+	  				<li>Start Date</li>
+	  				<li>End Date</li>
+	  			</ul>
+	  		</div>
+	  		<div class="col-md-8">	
+	  			<ul th:each="product : ${product}">
+		  			<li>
+						<form action="#" th:action="@{/user/update/product/{product_id}(product_id = ${product.id})}" th:object="${product}" th:method="POST">
+							<ul>
+								<li th:text="${product.productName}"></li>
+								<li>
+									<input type="text" name="productDescription" id="productDescription" th:attr="value = ${product.productDescription}"/>
+									<input type="hidden" name="product_name" id="product_name" th:value="${product.productName}"></input> 
+								</li>
+								<li th:text="${product.productGoal}"></li>
+								<li th:text="${product.currentRaised}"></li>
+								<li th:text="${#dates.format(product.start_date, 'dd-MM-yyyy')}"></li>
+								<li th:text="${#dates.format(product.end_date, 'dd-MM-yyyy')}"></li>
+								<li>
+									<input type="submit" class="btn btn-success" th:value="Submit"/>
+								</li>
+							</ul>
+						</form>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

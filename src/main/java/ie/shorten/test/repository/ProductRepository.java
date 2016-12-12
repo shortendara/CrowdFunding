@@ -2,6 +2,7 @@ package ie.shorten.test.repository;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import ie.shorten.test.entity.Product;
 
@@ -12,7 +13,7 @@ public interface ProductRepository extends CrudRepository<Product, Integer>{
 	 * @Param productName
 	 * @return Product
 	 * */
-	public List<Product> findByproductName(String productName); // SELECT * FROM artists WHERE fullName LIKE '%xxxxx%'
+	public Product findByproductName(String productName); // SELECT * FROM artists WHERE fullName LIKE '%xxxxx%'
 	public List<Product> findByproductNameContains(String productName); // SELECT * FROM artists WHERE fullName LIKE '%xxxxx%'
 	public List<Product> findByproductNameContainsIgnoreCase(String productName); // SELECT * FROM artists WHERE LOWER(fullName) LIKE LOWER('%xxxxx%')
 	
@@ -27,6 +28,11 @@ public interface ProductRepository extends CrudRepository<Product, Integer>{
 	 * @param id
 	 * @return Product
 	 */
-	public List<Product> findByid(int id);
+	public Product findByid(int id);
+	
+	public List<Product> findByuser_id(int id);
+	
+	@Transactional
+	List<Product> removeByid(int id);
 	
 }

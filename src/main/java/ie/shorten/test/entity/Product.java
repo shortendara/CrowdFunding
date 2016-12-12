@@ -3,13 +3,21 @@ package ie.shorten.test.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.sun.istack.internal.NotNull;
 
 @Entity
 @Table(name="products")
@@ -19,27 +27,40 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
+	@NotNull
 	@Column(name="product_name")
 	private String productName;
 	
-	@Column(name="prodcut_description")
+	@NotNull
+	@Column(name="product_description")
 	private String productDescription;
 	
+	@NotNull
 	@Column(name="product_goal")
 	private double productGoal;
 	
 	@Column(name="current_raised")
 	private double currentRaised;
 	
-	@ManyToMany(mappedBy="products")
-	private List<User> users;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="user_id")
+	private User user;
+	
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="product")
+	private List<Pledge> pledges;
+	
+	@DateTimeFormat (pattern="dd-MM-YYYY")
 	private Date start_date;
+	
+	@NotNull
+	@DateTimeFormat (pattern="dd-MM-YYYY")
 	private Date end_date;
+	
 	private String youtube_url;
 	
 	public Product(){}
 	
-	public Product(int id, String productName, String productDescription, double productGoal, double currentRaised, Date start_date, Date end_date){
+	public Product(int id, String productName, String productDescription, double productGoal, double currentRaised, Date start_date, Date end_date, String youtube_url){
 		this.id=id;
 		this.productName = productName;
 		this.productDescription = productDescription;
@@ -47,6 +68,7 @@ public class Product {
 		this.currentRaised = currentRaised;
 		this.start_date = start_date;
 		this.end_date = end_date;
+		this.youtube_url = youtube_url;
 	}
 	
 	public int getId() {
@@ -65,7 +87,6 @@ public class Product {
 		this.productName = name;
 	}
 
-
 	public String getProductDescription() {
 		return productDescription;
 	}
@@ -82,12 +103,21 @@ public class Product {
 		this.productGoal = productGoal;
 	}
 
-	public double getCurrentRasied() {
-		return currentRaised;
+	public double getCurrentRaised() {
+		return calculate_current_raised(pledges);
 	}
 
-	public void setCurrentRasied(double currentRaised) {
+	public void setCurrentRaised(double currentRaised) {
 		this.currentRaised = currentRaised;
+	}
+	
+	private Double calculate_current_raised(List<Pledge> pledges){
+		double total_raised = 0;
+		for(Pledge pledge : pledges){
+			total_raised += pledge.getAmount();
+		}
+		setCurrentRaised(total_raised);
+		return total_raised;
 	}
 
 	public Date getStart_date() {
@@ -106,7 +136,6 @@ public class Product {
 		this.end_date = end_date;
 	}
 	
-
 	public String getYoutube_url() {
 		return youtube_url;
 	}
@@ -114,9 +143,17 @@ public class Product {
 	public void setYoutube_url(String youtube_url) {
 		this.youtube_url = youtube_url;
 	}
+	
+	public List<Pledge> getPledges() {
+		return pledges;
+	}
+
+	public void setPledges(List<Pledge> pledges) {
+		this.pledges = pledges;
+	}
 
 	@Override
 	public String toString() {
-		return "Movement [id=" + id + ", name=" + productName + "]";
+		return "id=" + id + ", name=" + productName + "]";
 	}
 }

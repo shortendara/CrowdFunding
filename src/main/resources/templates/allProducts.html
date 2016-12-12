@@ -25,16 +25,12 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 
     
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right" th:each="user : ${user}">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Profile<span class="caret"></span></a>
           <ul class="dropdown-menu">
-          <!--
-            <li><a th:href="@{/user/} + ${user.getId()} + /profile">View Profile</a></li>
-            <li><a th:href="@{/user/} + ${user.getId()} + /products">My Products</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Logout</a></li>
-            -->
+            <li><a th:href="@{/user/profile/} + ${user.id}">View Profile</a></li>
+            <li><a th:href="@{/user/products/} + ${user.id}">My Products</a></li>
           </ul>
         </li>
       </ul>
@@ -45,22 +41,22 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 		<table class="table">
 		<thead>
 			<tr>
-				<th>Product ID:</th>
 				<th>Product Name:</th>
 				<th>Product Description</th>
 				<th>Product Goal</th>
 				<th>Current Raised</th>
-				<th>Harvey Says:</th>
+				<th>End Date:</th>
+				<th>View Product:</th>
 			</tr>
 		</thead>
 			<tr th:each="product : ${product_list}">
 				<tr>
-					<th th:text="${product.getId()}"></th>
-					<th th:text="${product.getProductName()}"></th>
-					<th th:text="${product.getProductDescription()}"></th>
-					<th th:text="${product.getProductGoal()}"></th>
-					<th th:text="${product.getCurrentRasied()}"></th>
-					<th><a th:href="@{/product/} + ${product.getId()}" class="btn btn-success"><span th:text="${product.getProductName()}"></span></a></th>
+					<th th:text="${product.productName}"></th>
+					<th th:text="${product.productDescription}"></th>
+					<th th:text="${product.productGoal}"></th>
+					<th th:text="${product.currentRaised}"></th>
+					<th th:text="${#dates.format(product.end_date, 'dd-MM-yyyy')}"></th>
+					<th><a th:href="@{/product/} + ${product.getId()}" class="btn btn-success"><span th:text="View"></span></a></th>
 				</tr>		
 			</tr>
 		</table>
