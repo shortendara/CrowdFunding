@@ -30,7 +30,7 @@ public interface ProductRepository extends CrudRepository<Product, Integer>{
 	 */
 	public Product findByid(int id);
 	
-	public List<Product> findByuser_id(int id);
+	//public List<Product> findByuser_id(int id);
 	
 	@Transactional
 	List<Product> removeByid(int id);
