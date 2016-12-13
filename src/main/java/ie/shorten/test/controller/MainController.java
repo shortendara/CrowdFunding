@@ -63,8 +63,6 @@ public class MainController extends WebMvcConfigurerAdapter {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-		
 		//Return all_products page
 		return "allProducts";
 	}
@@ -138,11 +136,20 @@ public class MainController extends WebMvcConfigurerAdapter {
    		return "user_profile";
    	}
    	
+   	/**
+   	 * Returns user the web page in which products can be created
+   	 * @return Create product page
+   	 */
    	@RequestMapping(value="/user/{user_id}/product/create", method=RequestMethod.GET)
    	public String get_create_product(){
    		return "new_product";
    	}
    	
+   	/**
+   	 * Post Mapping to save product created by user
+   	 * @param product
+   	 * @return Return product page of newly created product
+   	 */
    	@PostMapping(value="/user/product/create")
    	public String post_create_product(@ModelAttribute Product product){
    		System.out.println(product.getProductName());
@@ -167,6 +174,13 @@ public class MainController extends WebMvcConfigurerAdapter {
    		return "user_product_edit";
    	}
    	
+   	/**
+   	 * Post function in which user updates product. Only description of product may be updated from
+   	 * the web page itself. No other varaibles are allowed to be changed.
+   	 * @param product
+   	 * @param product_id
+   	 * @return All products page
+   	 */
    	@PostMapping(value = "/user/update/product/{product_id}")
    	public String product_update_submit(@ModelAttribute Product product, @PathVariable("product_id") int product_id){
    		Product current_product = product_repository.findByid(product_id);
@@ -176,22 +190,25 @@ public class MainController extends WebMvcConfigurerAdapter {
    		return "redirect:/product/all";
    	}
    
-   	
+   	/**
+   	 * 
+   	 * @param pledge
+   	 * @param product_id
+   	 * @return
+   	 */
    	@PostMapping(value="/donate/{product_id}")
    	public String donate(@ModelAttribute Pledge pledge, @PathVariable int product_id){
    		auth = SecurityContextHolder.getContext().getAuthentication();
    		String user_name = auth.getName();
    		User user = user_repository.findByuserName(user_name);
    		List<Product> user_products = user.getProducts();
+   		
    		/*
-   		for(Product product : user_products){
-   			if(product.getId() == product_id){
-   				
-   			}
-   		}
-   		*/
+   		 * Redirect user to profile page if they don't have enough credit
+   		 * TODO: Add error message to return page to indicate error occured.
+   		 * */
    		if(pledge.getAmount() > user.getCredit()){
-   			
+   			return "user_profile";
    		}
    		pledge.setUser(user);
    		pledge.setProduct(product_repository.findByid(product_id));
@@ -199,6 +216,11 @@ public class MainController extends WebMvcConfigurerAdapter {
    		return "redirect:/product/all";
    	}
    	
+   	/**
+   	 * Post Mapping to cancel a donation a user made to a product
+   	 * @param product_id
+   	 * @return
+   	 */
    	@PostMapping(value="donate/{product_id}/cancel")
    	public String cancel_donation(@PathVariable int product_id){
    		auth = SecurityContextHolder.getContext().getAuthentication();
@@ -217,6 +239,7 @@ public class MainController extends WebMvcConfigurerAdapter {
    		
    		return "redirect:/user/profile/"+user.getId();
    	}
+   	
    	/**
    	 * Return error page if user hasn't permission to view page
    	 * @param model
