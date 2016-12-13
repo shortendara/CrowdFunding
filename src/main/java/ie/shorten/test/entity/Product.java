@@ -42,10 +42,16 @@ public class Product {
 	@Column(name="current_raised")
 	private double currentRaised;
 	
+	/**
+	 * A user may have many products
+	 */
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private User user;
 	
+	/**
+	 * A product may have many pledges may to it
+	 */
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="product")
 	private List<Pledge> pledges;
 	

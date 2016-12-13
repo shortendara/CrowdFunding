@@ -14,7 +14,12 @@ public interface ProductRepository extends CrudRepository<Product, Integer>{
 	 * @return Product
 	 * */
 	public Product findByproductName(String productName); // SELECT * FROM artists WHERE fullName LIKE '%xxxxx%'
-	public List<Product> findByproductNameContains(String productName); // SELECT * FROM artists WHERE fullName LIKE '%xxxxx%'
+	
+	/**
+	 * Used for search functionality. 
+	 * @param productName
+	 * @return
+	 */
 	public List<Product> findByproductNameContainsIgnoreCase(String productName); // SELECT * FROM artists WHERE LOWER(fullName) LIKE LOWER('%xxxxx%')
 	
 	/**
@@ -30,8 +35,18 @@ public interface ProductRepository extends CrudRepository<Product, Integer>{
 	 */
 	public Product findByid(int id);
 	
+	/**
+	 * Function to find all products owned by a user based on user id
+	 * @param id
+	 * @return List of products with given user id number
+	 */
 	public List<Product> findByuser_id(int id);
 	
+	/**
+	 * Function to remove a product. Called when goal is reached or date has run out
+	 * @param id
+	 * @return List of remaining products
+	 */
 	@Transactional
 	List<Product> removeByid(int id);
 	
