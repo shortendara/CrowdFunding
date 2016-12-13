@@ -15,6 +15,29 @@ import javax.persistence.Table;
 @Entity
 @Table(name="users")
 public class User {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	
+	@Column(name="userName")
+	private String userName;
+	
+	private String password;
+	
+	private double credit;
+	
+	/**
+	 * User may be mapped to many products
+	 */
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="user")
+	private List<Product> products;
+	
+	/**
+	 * User may donate to many products 
+	 */
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="user")
+	private List<Pledge> pledges;
 	
 	public User(int id, String userName, String password, List<Product> products) {
 		super();
@@ -30,23 +53,6 @@ public class User {
     }
 	
 	public User(){}
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	
-	@Column(name="userName")
-	private String userName;
-	
-	private String password;
-	
-	private double credit;
-	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="user")
-	private List<Product> products;
-	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="user")
-	private List<Pledge> pledges;
 	
 	public int getId() {
 		return id;
@@ -89,6 +95,12 @@ public class User {
 		this.credit = credit;
 	}
 	
+	/**
+	 * Calculate total credit a user. Function called everytime profile
+	 * is loaded, updated when donations are made.
+	 * @param pledges
+	 * @return Credit user has left
+	 */
 	private double calculate_credit(List<Pledge> pledges){
 		double total_pledged = 0;
 		for(Pledge pledge : pledges){
