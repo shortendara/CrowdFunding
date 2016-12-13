@@ -19,10 +19,16 @@ public class Pledge {
 	
 	private Double amount;
 	
+	/**
+	 * Many pledges may be only mapped to one user
+	 */
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private User user;
 	
+	/**
+	 * Many pledges may be mapped to one product
+	 */
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="product_id")
 	private Product product;
