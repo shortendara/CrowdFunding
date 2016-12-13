@@ -35,12 +35,16 @@ public interface ProductRepository extends CrudRepository<Product, Integer>{
 	 */
 	public Product findByid(int id);
 	
+<<<<<<< HEAD
+	//public List<Product> findByuser_id(int id);
+=======
 	/**
 	 * Function to find all products owned by a user based on user id
 	 * @param id
 	 * @return List of products with given user id number
 	 */
 	public List<Product> findByuser_id(int id);
+>>>>>>> master
 	
 	/**
 	 * Function to remove a product. Called when goal is reached or date has run out
