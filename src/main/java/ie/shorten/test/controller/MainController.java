@@ -208,7 +208,7 @@ public class MainController extends WebMvcConfigurerAdapter {
    		 * TODO: Add error message to return page to indicate error occured.
    		 * */
    		if(pledge.getAmount() > user.getCredit()){
-   			return "user_profile";
+   			return "redirect:/product/all";
    		}
    		pledge.setUser(user);
    		pledge.setProduct(product_repository.findByid(product_id));
