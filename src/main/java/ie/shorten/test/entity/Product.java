@@ -62,11 +62,9 @@ public class Product {
 	@DateTimeFormat (pattern="dd-MM-YYYY")
 	private Date end_date;
 	
-	private String youtube_url;
-	
 	public Product(){}
 	
-	public Product(int id, String productName, String productDescription, double productGoal, double currentRaised, Date start_date, Date end_date, String youtube_url){
+	public Product(int id, String productName, String productDescription, double productGoal, double currentRaised, Date start_date, Date end_date){
 		this.id=id;
 		this.productName = productName;
 		this.productDescription = productDescription;
@@ -74,7 +72,6 @@ public class Product {
 		this.currentRaised = currentRaised;
 		this.start_date = start_date;
 		this.end_date = end_date;
-		this.youtube_url = youtube_url;
 	}
 	
 	public int getId() {
@@ -140,14 +137,6 @@ public class Product {
 
 	public void setEnd_date(Date end_date) {
 		this.end_date = end_date;
-	}
-	
-	public String getYoutube_url() {
-		return youtube_url;
-	}
-
-	public void setYoutube_url(String youtube_url) {
-		this.youtube_url = youtube_url;
 	}
 	
 	public List<Pledge> getPledges() {
