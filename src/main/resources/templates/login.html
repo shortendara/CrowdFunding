@@ -2,6 +2,61 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
    <head>
         <title>Spring Security Example </title>
+        <style type="text/css">
+            #left_colunm{
+                width: 30%;
+                float: left;
+            }
+
+            #right_colunm{
+                width:30%;
+                float: right;
+            }
+
+            #center_colunm{
+                margin-left: 30%;
+                margin-right: 30%
+            }
+            form{
+                border: 3px solid #f1f1f1;
+            }
+            form input{
+                margin-left: 15%;
+                margin-top: 1rem;
+                width: 60%;
+            }
+            #sign_in{
+                width:25%;
+            }
+            form label{
+                margin-left: 10%;
+            }
+            hr{
+                border-style: none;
+            }
+            h1{
+                margin-top: 25%;
+            }
+            .button{
+                background-color: #4CAF50;
+                color: white;
+                padding: 14px 20px;
+                margin-top: 1rem;
+                border: none;
+                cursor: pointer;
+                width: 100%;
+            }
+            .cancelbtn{
+                background-color: gray;
+                color: white;
+                padding: 14px 20px;
+                margin-top: 1rem;
+                border: none;
+                cursor: pointer;
+                width: 30%;
+                margin-left: 5%;
+            }
+        </style>
     </head>
     <body>
         <div th:if="${param.error}">
@@ -10,10 +65,32 @@
         <div th:if="${param.logout}">
             You have been logged out.
         </div>
-        <form th:action="@{/login}" method="post">
-            <div><label> User Name : <input type="text" name="username"/> </label></div>
-            <div><label> Password: <input type="password" name="password"/> </label></div>
-            <div><input type="submit" value="Sign In"/></div>
-        </form>
+        <div id="left_colunm"></div>
+        <div id="center_colunm">
+            <h1>Login Form</h1>
+            <div id="login_form">
+                <form th:action="@{/login}" method="post">
+                    <div>
+                        <label><b> User Name:</b></label>
+                        <br/>
+                        <input type="text" name="username" placeholder="Username" /> 
+                    </div>
+                    <div>
+                        <label><b> Password: </b></label>
+                        <br/>
+                        <input type="password" name="password" placeholder="Password" /> 
+                    </div>
+                    <div>
+                        <input type="submit" class="button" value="Sign In" id="sign_in"/>
+                        <button type="button" class="cancelbtn">Cancel</button>
+                    </div>
+                </form>
+            </div>
+            <div id="create_account">
+                <h3>Create Account:</h3>
+                
+            </div>
+        </div>
+        <div id="right_colunm"></div>
     </body>
 </html>
