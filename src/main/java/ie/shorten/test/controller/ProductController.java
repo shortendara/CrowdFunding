@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import ie.shorten.test.entity.Pledge;
 import ie.shorten.test.entity.Product;
 import ie.shorten.test.entity.User;
 import ie.shorten.test.repository.PledgeRepository;
@@ -60,6 +61,7 @@ public class ProductController {
    	 */
    	@RequestMapping("/{id}")
 	public String product(Model model, @PathVariable int id){
+   		model.addAttribute("pledge", new Pledge());
 	   	/*Get user that is logged in*/
 		auth = SecurityContextHolder.getContext().getAuthentication();
 		String user_name = auth.getName();

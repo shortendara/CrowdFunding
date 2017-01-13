@@ -2,11 +2,14 @@ package ie.shorten.test.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,7 +61,8 @@ public class UserController {
    	 * @return Create product page
    	 */
    	@RequestMapping(value="/{user_id}/product/create", method=RequestMethod.GET)
-   	public String get_create_product(){
+   	public String get_create_product(Model model){
+   		model.addAttribute("product", new Product());
    		return "new_product";
    	}
    	
@@ -67,11 +71,14 @@ public class UserController {
    	 * @param product
    	 * @return Return product page of newly created product
    	 */
-   	@PostMapping(value="/user/product/create")
-   	public String post_create_product(@ModelAttribute Product product){
-   		System.out.println(product.getProductName());
-   		product_repository.save(product);
-   		return "redirect:/product/"+product.getId();
+   	@PostMapping(value="/product/create")
+   	public String post_create_product(@Valid Product product, BindingResult bindingResult){
+   		if(bindingResult.hasErrors()){
+   			return "new_product";
+   		}else{
+   			product_repository.save(product);
+   	   		return "redirect:/product/"+product.getId();
+   		}
    	}
    	
    	/**
