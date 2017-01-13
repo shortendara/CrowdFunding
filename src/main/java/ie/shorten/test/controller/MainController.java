@@ -3,12 +3,15 @@ package ie.shorten.test.controller;
 import java.security.Principal;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -82,23 +85,30 @@ public class MainController extends WebMvcConfigurerAdapter {
    	 * @return
    	 */
    	@PostMapping(value="/donate/{product_id}")
-   	public String donate(@ModelAttribute Pledge pledge, @PathVariable int product_id){
-   		auth = SecurityContextHolder.getContext().getAuthentication();
-   		String user_name = auth.getName();
-   		User user = user_repository.findByuserName(user_name);
-   		List<Product> user_products = user.getProducts();
-   		
+   	public String donate(@Valid Pledge pledge, BindingResult bindingResult, @PathVariable int product_id){
    		/*
-   		 * Redirect user to profile page if they don't have enough credit
-   		 * TODO: Add error message to return page to indicate error occured.
+   		 * Validate input form if form invalid return form page
    		 * */
-   		if(pledge.getAmount() > user.getCredit()){
-   			return "redirect:/product/all";
+   		if(bindingResult.hasErrors()){
+   			return "redirect:/product/" + product_id;
+   		}else{
+   			auth = SecurityContextHolder.getContext().getAuthentication();
+   	   		String user_name = auth.getName();
+   	   		User user = user_repository.findByuserName(user_name);
+   	   		List<Product> user_products = user.getProducts();
+   	   		
+   	   		/*
+   	   		 * Redirect user to profile page if they don't have enough credit
+   	   		 * TODO: Add error message to return page to indicate error occured.
+   	   		 * */
+   	   		if(pledge.getAmount() > user.getCredit()){
+   	   			return "redirect:/product/all";
+   	   		}
+   	   		pledge.setUser(user);
+   	   		pledge.setProduct(product_repository.findByid(product_id));
+   	   		pledge_repository.save(pledge);
+   	   		return "redirect:/product/all";
    		}
-   		pledge.setUser(user);
-   		pledge.setProduct(product_repository.findByid(product_id));
-   		pledge_repository.save(pledge);
-   		return "redirect:/product/all";
    	}
    	
    	/**

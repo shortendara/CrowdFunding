@@ -14,10 +14,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
-import com.sun.istack.internal.NotNull;
 
 @Entity
 @Table(name="products")
@@ -29,14 +30,17 @@ public class Product {
 	
 	@NotNull
 	@Column(name="product_name")
+	@Size(min=2, max=255)
 	private String productName;
 	
 	@NotNull
 	@Column(name="product_description")
+	@Size(min=2)
 	private String productDescription;
 	
 	@NotNull
 	@Column(name="product_goal")
+	@Min(1)
 	private double productGoal;
 	
 	@Column(name="current_raised")

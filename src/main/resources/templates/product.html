@@ -10,8 +10,8 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   	
   	<style>
-  		#donate_button{
-  			margin-top: 3%;
+  		#donate{
+  			margin-top: 7%;
   		}
   		
   		li{
@@ -78,15 +78,22 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 				<ul>
 					<li th:each="product : ${product}">
 						<form action="#" th:action="@{/donate/{product_id}(product_id=${product.id})}" method="post" th:object="${pledge}">
-							<ul>
-								<li>
-									<h4>Donate:</h4>
-									<input type="number" name="amount" id="amount"  th:value="amount" min="1"/>
-								</li>
-								<li id="donate_button">
-									<input type="submit" class="btn btn-success" th:value="Donate" id="donate"></input>
-								</li>
-							</ul>
+							<table>
+								<tr>
+									<td>
+										<h4>Donate:</h4>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<input type="number" name="amount" th:value="${amount}" min="1"/>
+									</td>
+									<td th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">Must enter an amount</td>
+								</tr>
+								<tr id="donate_button">
+									<td><input type="submit" class="btn btn-success" th:value="Donate" id="donate"></input></td>
+								</tr>
+							</table>
 						</form>
 					</li>
 				</ul>
@@ -94,7 +101,7 @@ xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 			
 	 		<div class="col-md-6">			
 	  			<div class="embed-resposive embed-resposive-16by9">
-					<iframe class = "embed-responsive-item" width = "500" height = "315" src="${product.getYoutube_url()}"></iframe>
+					<!-- Product Image -->
 	  			</div>
 		  	</div>
 		
